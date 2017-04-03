@@ -8,7 +8,7 @@
 #ifndef COORDENADAS_H_
 #define COORDENADAS_H_
 
-class Coordenadas{
+class Coordenadas {
 	int x;
 	int y;
 
@@ -18,7 +18,7 @@ public:
 	 * @param int x - coordenada x
 	 * @param int y  - coordenada y
 	 */
-	Coordenadas (int x, int y){
+	Coordenadas(int x, int y) {
 		this->x = x;
 		this->y = y;
 	}
@@ -28,42 +28,51 @@ public:
 	 * @param int x - inicializada a 0
 	 * @param int y  - inicializada a 0
 	 */
-	Coordenadas(){
+	Coordenadas() {
 		this->x = 0;
 		this->y = 0;
 	}
 	/**
-	* @brief Funcao de retorno para a coordenada X
-	* @return int x
-	*/
-	int getX() {return this->x;}
+	 * @brief Funcao de retorno para a coordenada X
+	 * @return int x
+	 */
+	int getX() {
+		return this->x;
+	}
 
 	/**
-	* @brief Funcao de retorno para a coordenada Y
-	* @return int y
+	 * @brief Funcao de retorno para a coordenada Y
+	 * @return int y
 	 */
-	int getY(){return this->y;}
+	int getY() {
+		return this->y;
+	}
 
 	/**
 	 * @brief Funcao modificadora para a coordenada X
 	 * @param int x
 	 */
-	void setX(int x) {this->x = x;}
+	void setX(int x) {
+		this->x = x;
+	}
 
 	/**
-	* @brief Funcao modificadora para a coordenada Y
-	* @param int y
-	*/
-	void setY(int y) {this->y = y;}
+	 * @brief Funcao modificadora para a coordenada Y
+	 * @param int y
+	 */
+	void setY(int y) {
+		this->y = y;
+	}
 
 	/**
-	* @brief Funcao modificadora para as coordenadas X,Y
-	* @param int x
-	* @param int y
-	*/
-	void setCoordenadas(int x, int y){this->x = x; this->y = y;}
+	 * @brief Funcao modificadora para as coordenadas X,Y
+	 * @param int x
+	 * @param int y
+	 */
+	void setCoordenadas(int x, int y) {
+		this->x = x;
+		this->y = y;
+	}
 };
-
-
 
 #endif /* COORDENADAS_H_ */

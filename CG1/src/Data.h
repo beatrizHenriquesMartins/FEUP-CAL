@@ -33,43 +33,43 @@ public:
 	Data(int dia, int mes, int ano);
 
 	/**
-	* @brief Função de retorno para dia
+	* @brief Funcao de retorno para dia
 	* @return int dia
 	*/
 	int getDia() const;
 
 	/**
-	* @brief Função de retorno para mes
+	* @brief Funcao de retorno para mes
 	* @return int mes
 	*/
 	int getMes() const;
 
 	/**
-	* @brief Função de retorno para ano
+	* @brief Funcao de retorno para ano
 	* @return int ano
 	*/
 	int getAno() const;
 
 	/**
-	* @brief Função de modificação de dia
+	* @brief Funcao de modificacao de dia
 	* @param int dia
 	*/
 	void setDia(int dia);
 
 	/**
-	* @brief Função de modificação de mes
+	* @brief Funcao de modificacao de mes
 	* @param int mes
 	*/
 	void setMes(int mes);
 
 	/**
-	* @brief Função de modificação de ano
+	* @brief Funcao de modificacao de ano
 	* @param int ano
 	*/
 	void setAno(int ano);
 
 	/**
-	* @brief Função de escrita formatada de Data
+	* @brief Funcao de escrita formatada de Data
 	* @return string data no formato dd/mm/aa
 	*/
 	string toString();
