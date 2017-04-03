@@ -33,6 +33,7 @@ public:
 
 	bool checkEpocaAlta(Data dia);
 	bool checkEpocaBaixa(Data dia);
+	bool checkEpocaMedia(Data dia);
 
 
 	periodo getPeriodoIda(Data ida);
