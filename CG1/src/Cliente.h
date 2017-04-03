@@ -52,7 +52,7 @@ public:
 			unsigned long nif, string morada, string email);
 
 	/**
-	 * @brief Função de retorno para id do cliente
+	 * @brief Funcao de retorno para id do cliente
 	 * @return int id
 	 */
 	int getID() const;

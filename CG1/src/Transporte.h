@@ -34,37 +34,37 @@ public:
 	Transporte(tipoTransporte meio, float preco, Data data, int numLugares);
 
 	/**
-	* @brief Função de retorno do preco do Transporte
+	* @brief Funcao de retorno do preco do Transporte
 	* @return float preço
 	*/
 	float getPreco() const;
 
 	/**
-	* @brief Função de retorno de tipo do Transporte
+	* @brief Funcao de retorno de tipo do Transporte
 	* @return string tipo
 	*/
 	tipoTransporte getTipo() const;
 
 	/**
-	* @brief Função de retorno da data do Transporte
+	* @brief Funcao de retorno da data do Transporte
 	* @return Data data
 	*/
 	Data getData() const;
 
 	/**
-	 * @brief Função modificadora do preço do transporte
+	 * @brief Funcao modificadora do preço do transporte
 	 * @param float Preço
 	 */
 	void setPreco(float preco);
 
 	/**
-	* @brief Função modificadora do tipo do transporte
+	* @brief Funcao modificadora do tipo do transporte
 	* @param string tipo
 	*/
 	void setTipo(tipoTransporte meioTransporte);
 
 	/**
-	* @brief Função modificadora da data do transporte
+	* @brief Funcao modificadora da data do transporte
 	* @param Data data
 	*/
 	void setData(Data data);

@@ -26,8 +26,6 @@ void Menu::lerFicheiroClientes() {
 
 			getline(ss, nome, ';');
 
-			cout << id << endl;
-
 			ss >> nt;
 			getline(ss, lixo, ';');
 
@@ -115,14 +113,15 @@ void Menu::menuInicial() {
 	cout << setw(5) << " " << "2. Listagem de Cliente" << endl;
 	cout << setw(5) << " " << "3. Procura Cliente" << endl;
 	cout << setw(5) << " " << "4. Nova Viagem" << endl;
-	cout << setw(5) << " " << "5. Sair" << endl;
+	cout << setw(5) << " " << "5. Listagem de Destinos" << endl;
+	cout << setw(5) << " " << "6. Sair" << endl;
 
 	int op;
 
 	cout << "Opção: ";
 	cin >> op;
 
-	if (op > 5 || op < 1) {
+	if (op > 6 || op < 1) {
 		cout << "Seleccione uma opção válida!" << endl << endl << endl;
 		menuInicial();
 	}
@@ -136,6 +135,8 @@ void Menu::menuInicial() {
 	} else if (op == 4) {
 		menuNovaViagem();
 	} else if (op == 5) {
+		menuListaDestinos();
+	} else if (op == 6) {
 		escreverFicheiroClientes();
 		exit(0);
 	}
@@ -149,9 +150,13 @@ void Menu::menuNovoCliente() {
 	cout << setw(5) << " " << "---------------------" << endl;
 	cout << endl;
 
+	int numeroValido = 0;
 	unsigned long nif;
-	cout << setw(8) << " " << "NIF: ";
-	cin >> nif;
+	do {
+		cout << setw(8) << " " << "NIF: ";
+		cin >> nif;
+		numeroValido = lengthNumber(nif);
+	} while (nif == NULL && numeroValido != 8);
 
 	if (procuraCliente(nif) != -1) {
 		cout << setw(8) << " " << "Cliente já existe!" << endl;
@@ -160,25 +165,41 @@ void Menu::menuNovoCliente() {
 
 	cin.ignore(1);
 	string nome;
-	cout << endl << setw(8) << " " << "Nome: ";
-	getline(cin, nome);
+	do {
+		cout << endl << setw(8) << " " << "Nome: ";
+		getline(cin, nome);
+	} while (nome == "");
 
 	unsigned long numTel;
-	cout << endl << setw(8) << " " << "Número Telemóvel: ";
-	cin >> numTel;
+	do {
+		cout << endl << setw(8) << " " << "Número Telemóvel: ";
+		cin >> numTel;
+		numeroValido = lengthNumber(numTel);
+	} while (numTel == NULL && numeroValido != 9);
 
 	unsigned long ss;
-	cout << endl << setw(8) << " " << "Segurança Social: ";
-	cin >> ss;
+	do {
+		cout << endl << setw(8) << " " << "Segurança Social: ";
+		cin >> ss;
+		numeroValido = lengthNumber(ss);
+	} while (ss == NULL && numeroValido != 11);
 
 	cin.ignore(1);
 	string morada;
-	cout << endl << setw(8) << " " << "Morada: ";
-	getline(cin, morada);
+	do {
+		cout << endl << setw(8) << " " << "Morada: ";
+		getline(cin, morada);
+	} while (morada == "");
 
 	string email;
-	cout << endl << setw(8) << " " << "Email: ";
-	getline(cin, email);
+	do {
+		cout << endl << setw(8) << " " << "Email: ";
+		getline(cin, email);
+	} while (email == "");
+
+	trim(nome);
+	trim(morada);
+	trim(email);
 
 	Cliente* nC = new Cliente(nome, numTel, ss, nif, morada, email);
 
@@ -224,10 +245,13 @@ void Menu::menuProcuraClientes() {
 	cout << setw(5) << " " << "----------------------" << endl;
 	cout << endl << endl;
 
+	int numeroValido = 0;
 	unsigned long nif;
-
-	cout << setw(8) << " " << "Introduza o nif do Cliente: ";
-	cin >> nif;
+	do {
+		cout << setw(8) << " " << "Introduza o nif do Cliente: ";
+		cin >> nif;
+		numeroValido = lengthNumber(nif);
+	} while (nif == NULL && numeroValido != 8);
 
 	int ind = procuraCliente(nif);
 
@@ -279,6 +303,19 @@ void Menu::menuNovaViagem() {
 	menuInicial();
 }
 
+void Menu::menuListaDestinos() {
+	cout << "\n" << "\n" << "\n" << "\n";
+	cout << setw(5) << " " << "---------------------" << endl;
+	cout << setw(5) << " " << "| Lista de Clientes |" << endl;
+	cout << setw(5) << " " << "---------------------" << endl;
+	cout << endl;
+
+	cout << setw(8) << " " << setw(15) << "Partida" << setw(3) << "-"
+			<< setw(15) << "Destino" << endl;
+
+	menuInicial();
+}
+
 int Menu::procuraCliente(unsigned long nif) {
 	for (unsigned int i = 0; i < this->clientes.size(); i++) {
 		if (this->clientes[i]->getNif() == nif) {
@@ -288,3 +325,13 @@ int Menu::procuraCliente(unsigned long nif) {
 
 	return -1;
 }
+
+int Menu::lengthNumber(int n) {
+	int cont = 0;
+	while (n) {
+		n = n / 10;
+		cont++;
+	}
+	return cont;
+}
+
