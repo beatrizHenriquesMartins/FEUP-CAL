@@ -7,10 +7,11 @@
 //============================================================================
 
 #include <iostream>
+#include "Menu.h"
 
 using namespace std;
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	Menu();
 	return 0;
 }

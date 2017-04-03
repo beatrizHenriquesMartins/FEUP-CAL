@@ -40,7 +40,11 @@ public:
 
 	void menuNovaViagem();
 
+	void menuListaDestinos();
+
 	int procuraCliente(unsigned long nif);
+
+	int lengthNumber(int n);
 };
 
 #endif /* SRC_MENU_H_ */
