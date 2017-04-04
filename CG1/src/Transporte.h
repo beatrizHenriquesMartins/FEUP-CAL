@@ -12,7 +12,12 @@
 #include "Data.h"
 
 using namespace std;
-enum tipoTransporte { BUS, AVIAO, BARCO, COMBOIO };
+
+enum tipoTransporte {
+	AVIAO
+};
+
+/*, BARCO - para já fica só o avião para simplificar*/
 
 class Transporte {
 	float preco;
@@ -25,30 +30,30 @@ class Transporte {
 public:
 
 	/**
-	* @brief Construtor de Transporte
-	* @param float preco - preço do transporte
-	* @param tipoTransporte tipo - tipo de transporte
-	* @param Data data - data da viagem
-	* @param int numLugares - número de lugares disponíveis
-	*/
+	 * @brief Construtor de Transporte
+	 * @param float preco - preço do transporte
+	 * @param tipoTransporte tipo - tipo de transporte
+	 * @param Data data - data da viagem
+	 * @param int numLugares - número de lugares disponíveis
+	 */
 	Transporte(tipoTransporte meio, float preco, Data data, int numLugares);
 
 	/**
-	* @brief Funcao de retorno do preco do Transporte
-	* @return float preço
-	*/
+	 * @brief Funcao de retorno do preco do Transporte
+	 * @return float preço
+	 */
 	float getPreco() const;
 
 	/**
-	* @brief Funcao de retorno de tipo do Transporte
-	* @return string tipo
-	*/
+	 * @brief Funcao de retorno de tipo do Transporte
+	 * @return string tipo
+	 */
 	tipoTransporte getTipo() const;
 
 	/**
-	* @brief Funcao de retorno da data do Transporte
-	* @return Data data
-	*/
+	 * @brief Funcao de retorno da data do Transporte
+	 * @return Data data
+	 */
 	Data getData() const;
 
 	/**
@@ -58,15 +63,15 @@ public:
 	void setPreco(float preco);
 
 	/**
-	* @brief Funcao modificadora do tipo do transporte
-	* @param string tipo
-	*/
+	 * @brief Funcao modificadora do tipo do transporte
+	 * @param string tipo
+	 */
 	void setTipo(tipoTransporte meioTransporte);
 
 	/**
-	* @brief Funcao modificadora da data do transporte
-	* @param Data data
-	*/
+	 * @brief Funcao modificadora da data do transporte
+	 * @param Data data
+	 */
 	void setData(Data data);
 };
 

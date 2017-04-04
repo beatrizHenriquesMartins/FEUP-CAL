@@ -23,6 +23,37 @@ Cidade::Cidade(int id, string nome, Coordenadas coordenadas) {
 }
 
 Cidade::~Cidade() {
-	// TODO Auto-generated destructor stub
 
-} /* namespace std */
+}
+
+int Cidade::getId() const {
+	return id;
+}
+
+string Cidade::getNome() const {
+	return nome;
+}
+
+Coordenadas Cidade::getCoordenadas() const {
+	return coordenadas;
+}
+
+vector<int> Cidade::getLigados() const {
+	return ligados;
+}
+
+void Cidade::setId(int id) {
+	this->id = id;
+}
+
+void Cidade::setNome(string nome) {
+	this->nome = nome;
+}
+
+void Cidade::setCoordenadas(Coordenadas coordenadas) {
+	this->coordenadas = coordenadas;
+}
+
+void Cidade::setLigados(vector<int> ligados) {
+	this->ligados = ligados;
+}

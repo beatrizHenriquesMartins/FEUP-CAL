@@ -23,6 +23,22 @@ public:
 	Cidade();
 	Cidade(int id, string nome, Coordenadas coordenadas);
 	virtual ~Cidade();
+
+	int getId() const;
+
+	string getNome() const;
+
+	Coordenadas getCoordenadas() const;
+
+	vector<int> getLigados() const;
+
+	void setId(int id);
+
+	void setNome(string nome);
+
+	void setCoordenadas(Coordenadas coordenadas);
+
+	void setLigados(vector<int> ligados);
 };
 
 #endif /* CIDADE_H_ */
