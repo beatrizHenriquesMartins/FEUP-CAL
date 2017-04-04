@@ -11,11 +11,11 @@ void exercicio3();
 
 void exercicio1()
 {
-	GraphViewer *gv = new GraphViewer(600, 600, true);
+	GraphViewer *gv = new GraphViewer(800, 601, true);
 
-	gv->setBackground("background.jpg");
+	gv->setBackground("escala200km.png");
 
-	gv->createWindow(600, 600);
+	gv->createWindow(800, 601);
 
 	gv->defineEdgeDashed(true);
 	gv->defineVertexColor("blue");
@@ -232,8 +232,8 @@ void exercicio3()
 
 int main() {
 	exercicio1();
-	exercicio2();
-	exercicio3();
+	//exercicio2();
+	//exercicio3();
 	getchar();
 	return 0;
 }
