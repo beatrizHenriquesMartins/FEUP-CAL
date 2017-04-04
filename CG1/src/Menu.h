@@ -14,6 +14,7 @@
 #include <iomanip>
 
 #include "Cliente.h"
+#include "Viagem.h"
 
 class Menu {
 	vector<Cliente*> clientes;

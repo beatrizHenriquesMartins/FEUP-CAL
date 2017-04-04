@@ -15,7 +15,8 @@ Cidade::Cidade() {
 
 }
 
-Cidade::Cidade(string nome, Coordenadas coordenadas){
+Cidade::Cidade(int id, string nome, Coordenadas coordenadas) {
+	this->id = id;
 	this->nome = nome;
 	this->coordenadas = coordenadas;
 
@@ -23,6 +24,5 @@ Cidade::Cidade(string nome, Coordenadas coordenadas){
 
 Cidade::~Cidade() {
 	// TODO Auto-generated destructor stub
-
 
 } /* namespace std */
