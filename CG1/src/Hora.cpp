@@ -8,7 +8,6 @@
 #include "Hora.h"
 
 Hora::Hora() {
-	// TODO Auto-generated constructor stub
 
 }
 
@@ -31,4 +30,23 @@ void Hora::setHora(int hora) {
 
 void Hora::setMinutos(int minutos) {
 	this->minutos = minutos;
+}
+
+string Hora::toString() {
+
+	stringstream ss;
+
+	if (hora < 10 && this->minutos < 10) {
+		ss << "0" << this->hora << ":" << "0" << this->minutos;
+		return ss.str();
+	} else if (hora >= 10 && this->minutos < 10) {
+		ss << this->hora << ":" << "0" << this->minutos;
+		return ss.str();
+	} else if (hora >= 10 && this->minutos >= 10) {
+		ss << this->hora << ":" << this->minutos;
+		return ss.str();
+	} else if (hora < 10 && this->minutos >= 10) {
+		ss << "0" << this->hora << ":" << this->minutos;
+		return ss.str();
+	}
 }

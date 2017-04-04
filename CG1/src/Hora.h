@@ -8,6 +8,11 @@
 #ifndef SRC_HORA_H_
 #define SRC_HORA_H_
 
+#include <string>
+#include <sstream>
+
+using namespace std;
+
 class Hora {
 	int hora;
 	int minutos;
@@ -23,6 +28,8 @@ public:
 	void setHora(int hora);
 
 	void setMinutos(int minutos);
+
+	string toString();
 };
 
 #endif /* SRC_HORA_H_ */
