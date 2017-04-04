@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Data.h"
 
 void Menu::lerFicheiroClientes() {
 	ifstream fileC("clientes.txt");
@@ -91,9 +92,12 @@ void Menu::trim(string &str) {
 }
 
 Menu::Menu() {
+	
 	lerFicheiroClientes();
 
 	menuInicial();
+
+
 }
 
 vector<Cliente*> Menu::getClientes() const {
@@ -289,6 +293,8 @@ void Menu::menuNovaViagem() {
 	cout << setw(5) << " " << "---------------" << endl;
 	cout << endl << endl;
 
+	
+	
 	string partida;
 	cout << setw(8) << " " << "Partida: ";
 	getline(cin, partida);
@@ -296,6 +302,13 @@ void Menu::menuNovaViagem() {
 	string destino;
 	cout << setw(8) << " " << "Destino: ";
 	getline(cin, destino);
+
+	Data ida;
+	cout << setw(8) << " " << "Insira uma data de ida: ";
+	
+
+
+
 
 	cout << endl << "|" << partida << "|" << setw(4) << " " << "|" << destino
 			<< "|" << endl;
@@ -334,4 +347,3 @@ int Menu::lengthNumber(int n) {
 	}
 	return cont;
 }
-

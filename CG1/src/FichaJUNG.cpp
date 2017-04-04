@@ -1,8 +1,26 @@
 #include <cstdio>
 #include "graphviewer.h"
+#include "Cidade.h"
+#include "Graph.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
+
+
+#define VEL_MED_AVIAO 890
+
+
+Graph<Cidade> graph;
+GraphViewer *gv;
+
+
+void carregarCidades() {
+	
+
+	 
+
+
+}
 
 void exercicio1();
 void exercicio2();
@@ -232,7 +250,7 @@ void exercicio3()
 
 int main() {
 	exercicio1();
-	//exercicio2();
+	exercicio2();
 	//exercicio3();
 	getchar();
 	return 0;
