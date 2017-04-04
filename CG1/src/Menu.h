@@ -15,13 +15,18 @@
 
 #include "Cliente.h"
 #include "Viagem.h"
+#include "Transporte.h"
 
 class Menu {
 	vector<Cliente*> clientes;
 public:
 	void lerFicheiroClientes();
 
+	void lerFicheiroAvioes();
+
 	void escreverFicheiroClientes();
+
+	void escreverFicheiroAvioes();
 
 	void trim(string &str);
 

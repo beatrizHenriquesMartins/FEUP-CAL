@@ -53,6 +53,81 @@ void Menu::lerFicheiroClientes() {
 	}
 }
 
+void Menu::lerFicheiroAvioes() {
+	ifstream fileA("aviao.txt");
+
+	if (fileA.is_open()) {
+		string lixo;
+
+		string line;
+
+		getline(fileA, line);
+		stringstream ss(line);
+
+		string tipoTrans;
+		getline(ss, tipoTrans, '\n');
+
+		while (getline(fileA, line)) {
+
+			stringstream ss(line);
+
+			string origem;
+			string destino;
+			int dia;
+			int mes;
+			int ano;
+			int hora;
+			int min;
+			int horaD;
+			int minD;
+			float preco;
+
+			cout << endl << "---------------------------------------" << endl;
+
+			getline(ss, origem, ';');
+
+			trim(origem);
+
+			getline(ss, destino, ';');
+
+			trim(destino);
+
+			ss >> dia;
+			getline(ss, lixo, '/');
+
+			ss >> mes;
+			getline(ss, lixo, '/');
+
+			ss >> ano;
+			getline(ss, lixo, ';');
+
+			ss >> hora;
+			getline(ss, lixo, ':');
+
+			ss >> min;
+			getline(ss, lixo, ';');
+
+			ss >> horaD;
+			getline(ss, lixo, ':');
+
+			ss >> minD;
+			getline(ss, lixo, ';');
+
+			ss >> preco;
+			getline(ss, lixo, '\n');
+
+			Data data = Data(dia, mes, ano);
+			Hora horaPartida = Hora(hora, min);
+			Hora duracao = Hora(horaD, minD);
+			Transporte trans = Transporte(AVIAO, origem, destino, data,
+					horaPartida, duracao, preco);
+		}
+	} else {
+		cout << endl << "Não conseguiu abrir ficheiro de Voos" << endl << endl
+				<< endl;
+	}
+}
+
 void Menu::escreverFicheiroClientes() {
 	ofstream file("clientes.txt");
 
@@ -76,7 +151,34 @@ void Menu::escreverFicheiroClientes() {
 		}
 	}
 
-	cout << endl << "Ficheiro gravado com sucesso!" << endl << endl;
+	cout << endl << "Ficheiro Clientes gravado com sucesso!" << endl << endl;
+
+	file.close();
+}
+
+void Menu::escreverFicheiroAvioes() {
+	ofstream file("aviao.txt");
+
+	file.clear();
+
+	string origem;
+	string destino;
+	int dia;
+	int mes;
+	int ano;
+	int hora;
+	int min;
+	int horaD;
+	int minD;
+	float preco;
+
+	file << "AVIAO" << endl;
+
+	file << origem << " ; " << destino << " ; " << dia << " / " << mes << " / "
+			<< ano << " ; " << hora << " : " << min << " ; " << horaD << " : "
+			<< minD << " ; " << preco << endl;
+
+	cout << endl << "Ficheiro Voos gravado com sucesso!" << endl << endl;
 
 	file.close();
 }
@@ -92,6 +194,8 @@ void Menu::trim(string &str) {
 
 Menu::Menu() {
 	lerFicheiroClientes();
+
+	lerFicheiroAvioes();
 
 	menuInicial();
 }
@@ -138,6 +242,7 @@ void Menu::menuInicial() {
 		menuListaDestinos();
 	} else if (op == 6) {
 		escreverFicheiroClientes();
+		//escreverFicheiroAvioes();
 		exit(0);
 	}
 }
