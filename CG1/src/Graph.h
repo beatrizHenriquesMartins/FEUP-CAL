@@ -251,7 +251,7 @@ class Graph {
 public:
 	bool addVertex(const T &in);
 	//bool addEdge(const T &sourc, const T &dest, double w,double f=0);
-	bool addEdge(const T &sourc, const T &dest, Viagem viag);
+	bool addEdge(const T &sourc, const T &dest, Viagem viag); 
 	bool removeVertex(const T &in);
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
