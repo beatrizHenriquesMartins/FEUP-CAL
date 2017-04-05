@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 
+
 void exercicio1();
 void exercicio2();
 void exercicio3();

@@ -282,6 +282,7 @@ void Menu::menuProcuraClientes() {
 }
 
 void Menu::menuNovaViagem() {
+	
 	cin.ignore(1);
 	cout << "\n" << "\n" << "\n" << "\n";
 	cout << setw(5) << " " << "---------------" << endl;

@@ -10,6 +10,8 @@
 #include <limits>
 #include <cmath>
 #include <iostream>
+#include "Viagem.h"
+
 using namespace std;
 
 template <class T> class Edge;
@@ -38,8 +40,9 @@ public:
 	Vertex(T in);
 	friend class Graph<T>;
 
-	void addEdge(Vertex<T> *dest, double w);
-	void addEdge(Vertex<T> *dest, double w, double f);
+	//void addEdge(Vertex<T> *dest, double w);
+	//void addEdge(Vertex<T> *dest, double w, double f);
+	void addEdge(Vertex<T> *dest, Viagem viagem);
 	bool removeEdgeTo(Vertex<T> *d);
 
 	T getInfo() const;
@@ -87,7 +90,7 @@ Vertex<T>::Vertex(T in): info(in), visited(false), processing(false), indegree(0
 	path = NULL;
 }
 
-
+/*
 template <class T>
 void Vertex<T>::addEdge(Vertex<T> *dest, double w) {
 	Edge<T> edgeD(dest,w);
@@ -102,7 +105,15 @@ void Vertex<T>::addEdge(Vertex<T> *dest, double w, double f)
 	edgeD.orig = this;
 	adj.push_back(edgeD);
 }
+*/
 
+template <class T>
+void Vertex<T>::addEdge(Vertex<T> *dest,Viagem viagem)
+{
+	Edge<T> edgeD(dest, viagem);
+	edgeD.orig = this;
+	adj.push_back(edgeD);
+}
 
 template <class T>
 T Vertex<T>::getInfo() const {
@@ -135,6 +146,7 @@ int Vertex<T>::getIndegree() const {
 	return this->indegree;
 }
 
+/* POR AGORA NAO INTERESSA
 template <class T>
 void Vertex<T>::updateEdgeFlow(unsigned int index, float f)
 {
@@ -142,6 +154,7 @@ void Vertex<T>::updateEdgeFlow(unsigned int index, float f)
 		return;
 	adj[index].flow = f;
 }
+*/
 
 
 
@@ -153,11 +166,14 @@ template <class T>
 class Edge {
 	Vertex<T> * dest;
 	Vertex<T> * orig;
-	double weight;
-	double flow;
+	Viagem viagem;
+	double weight; // CUSTO DA VIAGEM POR ENQUANTO
+	//double flow;
 public:
-	Edge(Vertex<T> *d, double w, double f=0);
-	double getFlow() const;
+	//Edge(Vertex<T> *d, double w, double f=0);
+	Edge(Vertex<T> *d, Viagem viagem);
+	//double getFlow() const;
+	Viagem getViagem() const;
 	double getWeight() const;
 	Vertex<T> *getDest() const;
 	bool operator<(const Edge<T> &other) const;
@@ -166,12 +182,27 @@ public:
 	friend class Vertex<T>;
 };
 
+/*
 template <class T>
 Edge<T>::Edge(Vertex<T> *d, double w, double f): dest(d), weight(w), flow(f){}
+*/
 
+template <class T>
+Edge<T>::Edge(Vertex<T> *d, Viagem viag) : dest(d), viagem(viag) {
+	this->weight = viag.getCusto();
+
+}
+/*
 template <class T>
 double Edge<T>::getFlow() const {
 	return flow;
+}
+*/
+
+template<class T>
+Viagem Edge<T>::getViagem() const
+{
+	return this->viagem;
 }
 
 template <class T>
@@ -219,7 +250,8 @@ class Graph {
 
 public:
 	bool addVertex(const T &in);
-	bool addEdge(const T &sourc, const T &dest, double w,double f=0);
+	//bool addEdge(const T &sourc, const T &dest, double w,double f=0);
+	bool addEdge(const T &sourc, const T &dest, Viagem viag);
 	bool removeVertex(const T &in);
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
@@ -315,27 +347,51 @@ bool Graph<T>::removeVertex(const T &in) {
 	return false;
 }
 
-
+/*
 template <class T>
 bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, double f) {
-	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
-	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
-	int found=0;
+typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
+typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
+int found=0;
+Vertex<T> *vS, *vD;
+while (found!=2 && it!=ite ) {
+if ( (*it)->info == sourc )
+{ vS=*it; found++;}
+if ( (*it)->info == dest )
+{ vD=*it; found++;}
+it ++;
+}
+if (found!=2) return false;
+vD->indegree++;
+vS->addEdge(vD,w,f);
+
+return true;
+}
+*/
+
+template <class T>
+bool Graph<T>::addEdge(const T &sourc, const T &dest, Viagem viag) {
+	typename vector<Vertex<T>*>::iterator it = vertexSet.begin();
+	typename vector<Vertex<T>*>::iterator ite = vertexSet.end();
+	int found = 0;
 	Vertex<T> *vS, *vD;
-	while (found!=2 && it!=ite ) {
-		if ( (*it)->info == sourc )
-			{ vS=*it; found++;}
-		if ( (*it)->info == dest )
-			{ vD=*it; found++;}
-		it ++;
+	while (found != 2 && it != ite) {
+		if ((*it)->info == sourc)
+		{
+			vS = *it; found++;
+		}
+		if ((*it)->info == dest)
+		{
+			vD = *it; found++;
+		}
+		it++;
 	}
-	if (found!=2) return false;
+	if (found != 2) return false;
 	vD->indegree++;
-	vS->addEdge(vD,w,f);
+	vS->addEdge(vD, viag);
 
 	return true;
 }
-
 
 
 
@@ -822,7 +878,7 @@ void Graph<T>::floydWarshallShortestPath() {
 }
 
 
-
+/*
 template <class T>
 void Graph<T>::resetEdgeFlow()
 {
@@ -832,6 +888,8 @@ void Graph<T>::resetEdgeFlow()
 			vertexSet[i]->adj[a].flow = 0;
 	}
 }
+*/
+
 
 template <class T>
 Graph<T> Graph<T>::clone()
@@ -844,7 +902,8 @@ Graph<T> Graph<T>::clone()
 	{
 		vector<Edge<T> > edges = this->vertexSet[i]->adj;
 		for (unsigned int a = 0; a < edges.size(); a++)
-			ret.addEdge(this->vertexSet[i]->info, edges[a].dest->info, edges[a].weight, edges[a].flow);
+			//ret.addEdge(this->vertexSet[i]->info, edges[a].dest->info, edges[a].weight, edges[a].flow);
+			ret.addEdge(this->vertexSet[i]->info, edges[a].dest->info, edges[a].viagem);
 	}
 
 	return ret;
@@ -968,7 +1027,8 @@ vector<Vertex<T>*> Graph<T>::calculateKruskal()
 }
 
 
-
+/*
+ALGORITMOS QUE USAM FLOW
 template <class T>
 vector<Vertex<T>*> Graph<T>::calculateFordFulkerson(T source)
 {
@@ -1182,7 +1242,7 @@ float Graph<T>::calculateFordFulkerson(Vertex<T>* current, Vertex<T>* parent, fl
 	//Return the previously found minimum?
 	return -1;
 }
-
+*/
 
 
 

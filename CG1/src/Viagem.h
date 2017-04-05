@@ -24,6 +24,8 @@ class Viagem {
 	vector<Transporte> transporte;
 	vector<Estadia> estadia;
 	periodo epoca;
+	double custo; //peso
+	double distancia; //peso
 
 public:
 	Viagem();
@@ -35,6 +37,11 @@ public:
 	bool checkEpocaBaixa(Data dia);
 	bool checkEpocaMedia(Data dia);
 
+	double getCusto() const;
+	double getDistancia() const;
+
+	void setCusto(double custo);
+	void setDistancia(double distancia);
 
 	periodo getPeriodoIda(Data ida);
 	periodo getPeriodoIdaVolta(Data ida, Data volta);
