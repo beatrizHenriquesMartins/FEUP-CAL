@@ -17,40 +17,30 @@
 #include "Viagem.h"
 #include "Transporte.h"
 
-class Menu {
+class Agencia {
 	vector<Cliente*> clientes;
 public:
 	void lerFicheiroClientes();
-
 	void lerFicheiroAvioes();
-
 	void escreverFicheiroClientes();
-
 	void escreverFicheiroAvioes();
-
 	void trim(string &str);
-
-	Menu();
-
+	Agencia();
 	vector<Cliente*> getClientes() const;
-
 	void setClientes(vector<Cliente*> clientes);
-
 	void menuInicial();
-
 	void menuNovoCliente();
-
 	void menuListaClientes();
-
 	void menuProcuraClientes();
-
-	void menuNovaViagem();
-
+	int	menuNovaViagem();
+	void novaViagem();
 	void menuListaDestinos();
-
 	int procuraCliente(unsigned long nif);
-
 	int lengthNumber(int n);
+
+
+	void carregarGrafo(int choice);
+
 };
 
 #endif /* SRC_MENU_H_ */

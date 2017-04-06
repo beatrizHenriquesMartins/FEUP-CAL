@@ -1,7 +1,7 @@
-#include "Menu.h"
+#include "Agencia.h"
 #include "Data.h"
 
-void Menu::lerFicheiroClientes() {
+void Agencia::lerFicheiroClientes() {
 	ifstream fileC("clientes.txt");
 
 	if (fileC.is_open()) {
@@ -54,7 +54,7 @@ void Menu::lerFicheiroClientes() {
 	}
 }
 
-void Menu::lerFicheiroAvioes() {
+void Agencia::lerFicheiroAvioes() {
 	ifstream fileA("aviao.txt");
 
 	if (fileA.is_open()) {
@@ -127,7 +127,7 @@ void Menu::lerFicheiroAvioes() {
 	}
 }
 
-void Menu::escreverFicheiroClientes() {
+void Agencia::escreverFicheiroClientes() {
 	ofstream file("clientes.txt");
 
 	file.clear();
@@ -155,7 +155,7 @@ void Menu::escreverFicheiroClientes() {
 	file.close();
 }
 
-void Menu::escreverFicheiroAvioes() {
+void Agencia::escreverFicheiroAvioes() {
 	ofstream file("aviao.txt");
 
 	file.clear();
@@ -182,7 +182,7 @@ void Menu::escreverFicheiroAvioes() {
 	file.close();
 }
 
-void Menu::trim(string &str) {
+void Agencia::trim(string &str) {
 	if (str.size() != 0) {
 		size_t first = str.find_first_not_of(" ");
 		str = str.substr(first, (str.size() - first));
@@ -191,7 +191,7 @@ void Menu::trim(string &str) {
 	}
 }
 
-Menu::Menu() {
+Agencia::Agencia() {
 	
 	lerFicheiroClientes();
 
@@ -202,15 +202,15 @@ Menu::Menu() {
 
 }
 
-vector<Cliente*> Menu::getClientes() const {
+vector<Cliente*> Agencia::getClientes() const {
 	return clientes;
 }
 
-void Menu::setClientes(vector<Cliente*> clientes) {
+void Agencia::setClientes(vector<Cliente*> clientes) {
 	this->clientes = clientes;
 }
 
-void Menu::menuInicial() {
+void Agencia::menuInicial() {
 	cout << "************************" << endl;
 	cout << "| Menu Agencia Viagens |" << endl;
 	cout << "************************" << endl;
@@ -239,7 +239,7 @@ void Menu::menuInicial() {
 	} else if (op == 3) {
 		menuProcuraClientes();
 	} else if (op == 4) {
-		menuNovaViagem();
+		novaViagem();
 	} else if (op == 5) {
 		menuListaDestinos();
 	} else if (op == 6) {
@@ -249,7 +249,7 @@ void Menu::menuInicial() {
 	}
 }
 
-void Menu::menuNovoCliente() {
+void Agencia::menuNovoCliente() {
 	cin.ignore(1);
 	cout << "\n" << "\n" << "\n" << "\n";
 	cout << setw(5) << " " << "---------------------" << endl;
@@ -318,7 +318,7 @@ void Menu::menuNovoCliente() {
 	menuInicial();
 }
 
-void Menu::menuListaClientes() {
+void Agencia::menuListaClientes() {
 	cout << "\n" << "\n" << "\n" << "\n";
 	cout << setw(5) << " " << "---------------------" << endl;
 	cout << setw(5) << " " << "| Lista de Clientes |" << endl;
@@ -344,7 +344,7 @@ void Menu::menuListaClientes() {
 	menuInicial();
 }
 
-void Menu::menuProcuraClientes() {
+void Agencia::menuProcuraClientes() {
 	cin.ignore(1);
 	cout << "\n" << "\n" << "\n" << "\n";
 	cout << setw(5) << " " << "----------------------" << endl;
@@ -388,7 +388,7 @@ void Menu::menuProcuraClientes() {
 	menuInicial();
 }
 
-void Menu::menuNovaViagem() {
+int Agencia::menuNovaViagem() {
 	
 	cin.ignore(1);
 	cout << "\n" << "\n" << "\n" << "\n";
@@ -397,6 +397,25 @@ void Menu::menuNovaViagem() {
 	cout << setw(5) << " " << "---------------" << endl;
 	cout << endl << endl;
 
+	
+	cout << " Deseja realizar uma nova viagem poupando no custo ou poupando no tempo de viagem?\n";
+
+	int escolha = -1;
+	while (escolha != 1 && escolha != 2) {
+		cout << "\n 1. Viagem com custo mais baixo\n";
+		cout << " 2. Viagem com distancia (duracao) mais baixa\n";
+		cout << "> "; cin >> escolha;
+		if (escolha != 1 && escolha != 2) cout << " Por favor selecione uma opcao valida.\n";
+	}
+
+	return escolha;
+}
+
+void Agencia::novaViagem() {
+	
+	int peso = menuNovaViagem();
+
+	carregarGrafo(peso);
 	
 	
 	string partida;
@@ -409,18 +428,17 @@ void Menu::menuNovaViagem() {
 
 	Data ida;
 	cout << setw(8) << " " << "Insira uma data de ida: ";
-	
+
+
 
 
 
 
 	cout << endl << "|" << partida << "|" << setw(4) << " " << "|" << destino
-			<< "|" << endl;
-
-	menuInicial();
+		<< "|" << endl;
 }
 
-void Menu::menuListaDestinos() {
+void Agencia::menuListaDestinos() {
 	cout << "\n" << "\n" << "\n" << "\n";
 	cout << setw(5) << " " << "---------------------" << endl;
 	cout << setw(5) << " " << "| Lista de Clientes |" << endl;
@@ -433,7 +451,7 @@ void Menu::menuListaDestinos() {
 	menuInicial();
 }
 
-int Menu::procuraCliente(unsigned long nif) {
+int Agencia::procuraCliente(unsigned long nif) {
 	for (unsigned int i = 0; i < this->clientes.size(); i++) {
 		if (this->clientes[i]->getNif() == nif) {
 			return i;
@@ -443,11 +461,17 @@ int Menu::procuraCliente(unsigned long nif) {
 	return -1;
 }
 
-int Menu::lengthNumber(int n) {
+int Agencia::lengthNumber(int n) {
 	int cont = 0;
 	while (n) {
 		n = n / 10;
 		cont++;
 	}
 	return cont;
+}
+
+void Agencia::carregarGrafo(int choice)
+{
+
+
 }

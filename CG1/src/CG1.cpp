@@ -7,11 +7,11 @@
 //============================================================================
 
 #include <iostream>
-#include "Menu.h"
+#include "Agencia.h"
 
 using namespace std;
 
-//int main() {
-	//Menu();
-	//return 0;
-//}
+int main() {
+	Agencia();
+	return 0;
+}
