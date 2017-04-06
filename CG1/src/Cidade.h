@@ -15,16 +15,13 @@
 using namespace std;
 
 class Cidade {
-	int id;
 	string nome;
 	Coordenadas coordenadas;
 	vector<int> ligados;
 public:
 	Cidade();
-	Cidade(int id, string nome, Coordenadas coordenadas);
+	Cidade(string nome, Coordenadas coordenadas);
 	virtual ~Cidade();
-
-	int getId() const;
 
 	string getNome() const;
 

@@ -15,8 +15,7 @@ Cidade::Cidade() {
 
 }
 
-Cidade::Cidade(int id, string nome, Coordenadas coordenadas) {
-	this->id = id;
+Cidade::Cidade(string nome, Coordenadas coordenadas) {
 	this->nome = nome;
 	this->coordenadas = coordenadas;
 
@@ -24,10 +23,6 @@ Cidade::Cidade(int id, string nome, Coordenadas coordenadas) {
 
 Cidade::~Cidade() {
 
-}
-
-int Cidade::getId() const {
-	return id;
 }
 
 string Cidade::getNome() const {
@@ -42,9 +37,6 @@ vector<int> Cidade::getLigados() const {
 	return ligados;
 }
 
-void Cidade::setId(int id) {
-	this->id = id;
-}
 
 void Cidade::setNome(string nome) {
 	this->nome = nome;

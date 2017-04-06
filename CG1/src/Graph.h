@@ -10,6 +10,7 @@
 #include <limits>
 #include <cmath>
 #include <iostream>
+
 #include "Viagem.h"
 
 using namespace std;
@@ -814,7 +815,7 @@ int Graph<T>::edgeCost(int vOrigIndex, int vDestIndex)
 	return INT_INFINITY;
 }
 
-
+/*
 void printSquareArray(int ** arr, unsigned int size)
 {
 	for(unsigned int k = 0; k < size; k++)
@@ -841,7 +842,7 @@ void printSquareArray(int ** arr, unsigned int size)
 		cout << endl;
 	}
 }
-
+*/
 
 template<class T>
 void Graph<T>::floydWarshallShortestPath() {

@@ -16,6 +16,15 @@
 #include "Cliente.h"
 #include "Viagem.h"
 #include "Transporte.h"
+#include "Cidade.h"
+
+#include "Graph.h"
+#include "graphviewer.h"
+#include "DadosGraph.h"
+
+#define MAP_TO_METERS 32
+#define VEL_MED_AVIAO 890
+
 
 class Agencia {
 	vector<Cliente*> clientes;

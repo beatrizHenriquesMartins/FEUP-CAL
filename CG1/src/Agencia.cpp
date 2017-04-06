@@ -47,6 +47,7 @@ void Agencia::lerFicheiroClientes() {
 			Cliente* c = new Cliente(nome, nt, segSocial, nif, morada, email);
 
 			this->clientes.push_back(c);
+			fileC.close();
 		}
 	} else {
 		cout << endl << "Não conseguiu abrir ficheiro de Clientes" << endl
@@ -472,6 +473,41 @@ int Agencia::lengthNumber(int n) {
 
 void Agencia::carregarGrafo(int choice)
 {
+	// inicializador graphviewer
+	GraphViewer *gv = new GraphViewer(800, 601, true);
+
+	gv->setBackground("escala200km.png");
+
+	gv->createWindow(800, 601);
+
+	gv->defineEdgeDashed(true);
+	gv->defineVertexColor("blue");
+	gv->defineEdgeColor("black");
+
+	ifstream cidades("cidades.txt");
+	
+	
+	if (cidades.is_open()) {
+
+		string linha;
+
+		
+		while (!cidades.eof()) {
+			Cidade cidade;
+			int x, y;
+			string nome;
+
+			getline(cidades, linha);
+			cidade.setNome(linha);
+
+		}
+
+		
+			cidades.close();
+		}
+	else {
+		cout << endl << "Não conseguiu abrir ficheiro de cidades" << endl << endl << endl;
+	}
 
 
 }
