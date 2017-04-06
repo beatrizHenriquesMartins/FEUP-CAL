@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Data.h"
 
 void Menu::lerFicheiroClientes() {
 	ifstream fileC("clientes.txt");
@@ -17,21 +18,33 @@ void Menu::lerFicheiroClientes() {
 			string nome;
 			string morada;
 			string email;
-			long nt;
-			long nif;
-			long segSocial;
+			string nts;
+			unsigned long nt;
+			string nifs;
+			unsigned long  nif;
+			string segsocials;
+			unsigned long long segSocial;
+
+			cout << endl << line << endl;
 
 			ss >> id;
 			getline(ss, lixo, ';');
 
 			getline(ss, nome, ';');
 
-			ss >> nt;
-			getline(ss, lixo, ';');
+			//ss >> nt;
+			getline(ss, nts, ';');
+			trim(nts);
+			nt = atol(nts.c_str());
 
-			ss >> segSocial;
-			getline(ss, lixo, ';');
+			cout << endl << nts << "/" << nt << endl;
 
+			//ss >> segSocial;
+			getline(ss, segsocials, ';');
+			trim(segsocials);
+			segSocial = atoll(segsocials.c_str());
+
+			cout << endl<<"ss" << segsocials << "/" << segSocial<< endl;
 			ss >> nif;
 			getline(ss, lixo, ';');
 
@@ -42,6 +55,8 @@ void Menu::lerFicheiroClientes() {
 			trim(nome);
 			trim(morada);
 			trim(email);
+
+			cout << morada << email<<endl;
 
 			Cliente* c = new Cliente(nome, nt, segSocial, nif, morada, email);
 
@@ -135,7 +150,7 @@ void Menu::escreverFicheiroClientes() {
 		int id = this->clientes[j]->getID();
 		string nome = this->clientes[j]->getNome();
 		unsigned long nt = this->clientes[j]->getNumTelefone();
-		unsigned long ss = this->clientes[j]->getSs();
+		unsigned long long ss = this->clientes[j]->getSs();
 		unsigned long nif = this->clientes[j]->getNif();
 		string morada = this->clientes[j]->getMorada();
 		string email = this->clientes[j]->getEmail();
@@ -191,11 +206,14 @@ void Menu::trim(string &str) {
 }
 
 Menu::Menu() {
+	
 	lerFicheiroClientes();
 
 	lerFicheiroAvioes();
 
 	menuInicial();
+
+
 }
 
 vector<Cliente*> Menu::getClientes() const {
@@ -220,7 +238,7 @@ void Menu::menuInicial() {
 
 	int op;
 
-	cout << "Opção: ";
+	cout << "Opcao: ";
 	cin >> op;
 
 	if (op > 6 || op < 1) {
@@ -280,7 +298,7 @@ void Menu::menuNovoCliente() {
 		numeroValido = lengthNumber(numTel);
 	} while (numTel == NULL && numeroValido != 9);
 
-	unsigned long ss = 0;
+	unsigned long long ss = 0;
 	do {
 		cout << endl << setw(8) << " " << "Segurança Social: ";
 		cin >> ss;
@@ -322,8 +340,8 @@ void Menu::menuListaClientes() {
 	cout << endl;
 
 	cout << setw(8) << " " << setw(4) << "ID" << setw(39) << " " << "Nome"
-			<< setw(13) << "Telemovel" << setw(14) << "SS" << setw(11) << "NIF"
-			<< setw(40) << "Morada" << setw(23) << "Email" << endl;
+			<< setw(12) << "Telemovel" << setw(14) << "SS" << setw(11) << "NIF"
+			<< setw(41) << "Morada" << setw(23) << "Email" << endl;
 
 	for (int i = 0; i < this->clientes.size(); i++) {
 		cout << setw(8) << " " << setw(4) << this->clientes[i]->getID()
@@ -385,6 +403,7 @@ void Menu::menuProcuraClientes() {
 }
 
 void Menu::menuNovaViagem() {
+	
 	cin.ignore(1);
 	cout << "\n" << "\n" << "\n" << "\n";
 	cout << setw(5) << " " << "---------------" << endl;
@@ -392,6 +411,8 @@ void Menu::menuNovaViagem() {
 	cout << setw(5) << " " << "---------------" << endl;
 	cout << endl << endl;
 
+	
+	
 	string partida;
 	cout << setw(8) << " " << "Partida: ";
 	getline(cin, partida);
@@ -399,6 +420,13 @@ void Menu::menuNovaViagem() {
 	string destino;
 	cout << setw(8) << " " << "Destino: ";
 	getline(cin, destino);
+
+	Data ida;
+	cout << setw(8) << " " << "Insira uma data de ida: ";
+	
+
+
+
 
 	cout << endl << "|" << partida << "|" << setw(4) << " " << "|" << destino
 			<< "|" << endl;
@@ -437,4 +465,3 @@ int Menu::lengthNumber(int n) {
 	}
 	return cont;
 }
-
