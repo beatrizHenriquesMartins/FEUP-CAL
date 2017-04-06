@@ -7,7 +7,12 @@
 
 #include "Cidade.h"
 
+
+
 using namespace std;
+
+unsigned int Cidade::idstatic = 1;
+
 
 Cidade::Cidade() {
 	this->nome = "";
@@ -15,14 +20,24 @@ Cidade::Cidade() {
 
 }
 
-Cidade::Cidade(string nome, Coordenadas coordenadas) {
+Cidade::Cidade(int id, string nome, Coordenadas coordenadas) {
+	this->id = idstatic;
 	this->nome = nome;
 	this->coordenadas = coordenadas;
+	idstatic++;
 
 }
 
 Cidade::~Cidade() {
 
+}
+
+void Cidade::setId(int id) {
+	this->id = id;
+}
+
+int Cidade::getId() {
+	return this->id;
 }
 
 string Cidade::getNome() const {
@@ -48,4 +63,10 @@ void Cidade::setCoordenadas(Coordenadas coordenadas) {
 
 void Cidade::setLigados(vector<int> ligados) {
 	this->ligados = ligados;
+}
+
+bool operator==(Cidade&a, const Cidade &rhs) {
+	Cidade estacao = rhs;
+	if (a.getId() == estacao.getId()) return true;
+	else return false;
 }

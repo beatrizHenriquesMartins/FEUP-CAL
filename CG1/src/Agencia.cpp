@@ -471,10 +471,12 @@ int Agencia::lengthNumber(int n) {
 	return cont;
 }
 
-void Agencia::carregarGrafo(int choice)
-{
+void Agencia::carregarGrafo(int choice){
+
+	srand(time(NULL));
+
 	// inicializador graphviewer
-	GraphViewer *gv = new GraphViewer(800, 601, true);
+	GraphViewer *gv = new GraphViewer(800, 601, false);
 
 	gv->setBackground("escala200km.png");
 
@@ -493,15 +495,35 @@ void Agencia::carregarGrafo(int choice)
 
 		
 		while (!cidades.eof()) {
-			Cidade cidade;
-			int x, y;
+			Coordenadas coordenadas;
+			int x, y, id;
 			string nome;
 
 			getline(cidades, linha);
-			cidade.setNome(linha);
+			id = atoi(linha.c_str());
 
+			getline(cidades, linha);
+			nome = linha;
+
+			getline(cidades, linha);
+			x = atoi(linha.c_str());
+
+			getline(cidades, linha);
+			y = atoi(linha.c_str());
+
+			Cidade cidade = Cidade(id, nome, Coordenadas(x,y));
+
+			int random = rand() % 12 + 1;
+
+			if (grafo.addVertex(cidade)) {
+				gv->addNode(id, x, y);
+				gv->setVertexLabel(id, nome);
+				gv->setVertexSize(id, 15);
+				gv->setVertexColor(id, cores[random]);
+			}
 		}
 
+			
 		
 			cidades.close();
 		}

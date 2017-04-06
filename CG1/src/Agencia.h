@@ -12,6 +12,8 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <time.h>  
+#include <stdlib.h>
 
 #include "Cliente.h"
 #include "Viagem.h"
@@ -22,12 +24,18 @@
 #include "graphviewer.h"
 #include "DadosGraph.h"
 
-#define MAP_TO_METERS 32
-#define VEL_MED_AVIAO 890
+#define MAP_TO_KM 6.14432 // escalar que converte a distancia no mapa para distancia real em km
+#define VEL_MED_AVIAO 890 // velocidade media de um aviao, em km/h
+
+static vector<string> cores = { BLUE, RED, PINK, BLACK, WHITE, ORANGE, YELLOW, GREEN, CYAN, GRAY, DARK_GRAY, LIGHT_GRAY, MAGENTA };
 
 
 class Agencia {
 	vector<Cliente*> clientes;
+
+	Graph<Cidade> grafo;
+	GraphViewer *gv;
+	vector<DadosGraph> dadosGrafo;
 public:
 	void lerFicheiroClientes();
 	void lerFicheiroAvioes();

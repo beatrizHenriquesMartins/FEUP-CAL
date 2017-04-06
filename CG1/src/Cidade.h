@@ -15,12 +15,14 @@
 using namespace std;
 
 class Cidade {
+	static unsigned int idstatic;
+	int id;
 	string nome;
 	Coordenadas coordenadas;
 	vector<int> ligados;
 public:
 	Cidade();
-	Cidade(string nome, Coordenadas coordenadas);
+	Cidade(int id, string nome, Coordenadas coordenadas);
 	virtual ~Cidade();
 
 	string getNome() const;
@@ -30,6 +32,9 @@ public:
 	vector<int> getLigados() const;
 
 	void setId(int id);
+	int getId();
+
+	friend bool operator==(Cidade&a, const Cidade &rhs);
 
 	void setNome(string nome);
 
@@ -37,5 +42,9 @@ public:
 
 	void setLigados(vector<int> ligados);
 };
+
+
+
+
 
 #endif /* CIDADE_H_ */
