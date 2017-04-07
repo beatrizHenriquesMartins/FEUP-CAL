@@ -19,6 +19,8 @@
 #include "Viagem.h"
 #include "Transporte.h"
 #include "Cidade.h"
+#include "Data.h"
+
 
 #include "Graph.h"
 #include "graphviewer.h"
@@ -56,7 +58,9 @@ public:
 	int lengthNumber(int n);
 
 
-	void carregarGrafo(int choice);
+
+
+	void carregarGrafo(int choice, periodo per);
 
 };
 

@@ -1,5 +1,4 @@
 #include "Agencia.h"
-#include "Data.h"
 
 void Agencia::lerFicheiroClientes() {
 	ifstream fileC("clientes.txt");
@@ -413,30 +412,58 @@ int Agencia::menuNovaViagem() {
 }
 
 void Agencia::novaViagem() {
-	
+	Viagem viagem;
 	int peso = menuNovaViagem();
 
-	carregarGrafo(peso);
+	int dia;
+	int mes;
+	int ano;
 	
+	cin.ignore(1);
+	string ida;
+	cout << setw(8) << " " << "Data de ida: ";
 	
-	string partida;
-	cout << setw(8) << " " << "Partida: ";
-	getline(cin, partida);
+	getline(cin, ida);
+	stringstream ss(ida);
+	ss >> dia;
+	getline(ss, ida, '/');
+	ss >> mes;
+	getline(ss, ida, '/');
+	ss >> ano;
 
-	string destino;
-	cout << setw(8) << " " << "Destino: ";
-	getline(cin, destino);
+	Data dataIda(dia, mes, ano);
 
-	Data ida;
-	cout << setw(8) << " " << "Insira uma data de ida: ";
+	
+	string volta;
+	cout << setw(8) << " " << "Data de volta (insira 0 se nao aplicavel): ";
+	getline(cin, volta);
+	Data dataVolta;
+
+	if (atoi(volta.c_str()) == 0) { 
+		 viagem = Viagem(dataIda);
+		//dataVolta = Data(); 
+	}
+	else {
+		stringstream ss(volta);
+		ss >> dia;
+		getline(ss, volta, '/');
+		ss >> mes;
+		getline(ss, volta, '/');
+		ss >> ano;
+		dataVolta= Data(dia, mes, ano);
+		 viagem = Viagem(dataIda, dataVolta);
+	}
+	
+
+	periodo per= viagem.getPeriodo();
 
 
+	carregarGrafo(peso,per);
+	
+	getchar();
 
-
-
-
-	cout << endl << "|" << partida << "|" << setw(4) << " " << "|" << destino
-		<< "|" << endl;
+	//cout << endl << "|" << partida << "|" << setw(4) << " " << "|" << destino
+		//<< "|" << endl;
 }
 
 void Agencia::menuListaDestinos() {
@@ -471,7 +498,7 @@ int Agencia::lengthNumber(int n) {
 	return cont;
 }
 
-void Agencia::carregarGrafo(int choice){
+void Agencia::carregarGrafo(int choice, periodo per){
 
 	srand(time(NULL));
 

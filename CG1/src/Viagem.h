@@ -30,8 +30,13 @@ class Viagem {
 public:
 	Viagem();
 
+
 	Viagem(Data ida);
 	Viagem(Data ida, Data volta);
+
+
+	Viagem(Data ida, double custo, double distancia);
+	Viagem(Data ida, Data volta, double custo, double distancia);
 
 	bool checkEpocaAlta(Data dia);
 	bool checkEpocaBaixa(Data dia);
@@ -43,8 +48,7 @@ public:
 	void setCusto(double custo);
 	void setDistancia(double distancia);
 
-	periodo getPeriodoIda(Data ida);
-	periodo getPeriodoIdaVolta(Data ida, Data volta);
+	periodo getPeriodo();
 };
 
 #endif /* SRC_VIAGEM_H_ */

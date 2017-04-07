@@ -18,10 +18,18 @@ Viagem::Viagem() {
 Viagem::Viagem(Data ida) {
 	this->ida = ida;
 	this->volta = Data();
-	epoca = getPeriodoIda(ida);
+	epoca = getPeriodo();
 
 	//this->transporte  = {}; por fazer
 	//this->estadia = {}; por fazer
+}
+
+Viagem::Viagem(Data ida, Data volta)
+{
+	this->ida = ida;
+	this->volta = volta;
+	epoca = getPeriodo();
+
 }
 
 bool Viagem::checkEpocaAlta(Data dia) {
@@ -52,6 +60,7 @@ bool Viagem::checkEpocaBaixa(Data dia) {
 
 bool Viagem::checkEpocaMedia(Data dia) {
 	if (dia.getMes() == 9 || dia.getMes() == 6 || dia.getMes() == 11) return true;
+	return false;
 	 //meses de setembro, junho e novembro
 }
 
@@ -75,20 +84,22 @@ void Viagem::setDistancia(double distancia)
 	this->distancia = distancia;
 }
 
-periodo Viagem::getPeriodoIda(Data ida) {
+periodo Viagem::getPeriodo() {
 
-	if (checkEpocaAlta(ida)) return static_cast<periodo>(3);
-	else if(checkEpocaMedia(ida)) return static_cast<periodo>(2);
-	else if(checkEpocaBaixa(ida)) return static_cast<periodo>(1);
-	else return static_cast<periodo>(0);
+	
+	if (this->volta.getDia() == 0) {
+		if (checkEpocaAlta(this->ida)) return static_cast<periodo>(3);
+		else if (checkEpocaMedia(this->ida)) return static_cast<periodo>(2);
+		else if (checkEpocaBaixa(this->ida)) return static_cast<periodo>(1);
+		else return static_cast<periodo>(0);
+	}
+	else {
+		if (checkEpocaAlta(this->ida) || checkEpocaAlta(this->volta)) return static_cast<periodo>(3);
+		else if (checkEpocaMedia(this->ida) || checkEpocaMedia(this->volta)) return static_cast<periodo>(2);
+		else if (checkEpocaBaixa(this->ida) || checkEpocaBaixa(this->volta)) return static_cast<periodo>(1);
+		else return static_cast<periodo>(0);
+	}
+
+	return static_cast<periodo>(0);
 
 }
-
-periodo Viagem::getPeriodoIdaVolta(Data ida, Data volta) {
-
-	if (checkEpocaAlta(ida) || checkEpocaAlta(volta)) return static_cast<periodo>(3);
-	else if (checkEpocaMedia(ida) || checkEpocaMedia(volta)) return static_cast<periodo>(2);
-	else if (checkEpocaBaixa(ida) || checkEpocaBaixa(volta)) return static_cast<periodo>(1);
-	else return static_cast<periodo>(0);
-}
-
