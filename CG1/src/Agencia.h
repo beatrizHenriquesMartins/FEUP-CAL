@@ -60,7 +60,7 @@ public:
 
 
 
-	void carregarGrafo(int choice, periodo per);
+	void carregarGrafo(int choice, Viagem viag);
 
 };
 

@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Agencia.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CG1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,11 +48,11 @@
     <ClCompile Include="Viagem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Agencia.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Agencia.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Cidade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -93,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Viagem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Agencia.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

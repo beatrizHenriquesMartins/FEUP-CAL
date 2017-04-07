@@ -455,10 +455,7 @@ void Agencia::novaViagem() {
 	}
 	
 
-	periodo per= viagem.getPeriodo();
-
-
-	carregarGrafo(peso,per);
+	carregarGrafo(peso,viagem);
 	
 	getchar();
 
@@ -498,8 +495,14 @@ int Agencia::lengthNumber(int n) {
 	return cont;
 }
 
-void Agencia::carregarGrafo(int choice, periodo per){
-
+void Agencia::carregarGrafo(int choice, Viagem viag){
+	
+	int edgeId = 0;
+	Cidade tempo;
+	Viagem viagemGrafo = viag;
+	
+	periodo per = viagemGrafo.getPeriodo();
+	
 	srand(time(NULL));
 
 	// inicializador graphviewer
@@ -512,6 +515,10 @@ void Agencia::carregarGrafo(int choice, periodo per){
 	gv->defineEdgeDashed(true);
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
+
+	Cidade ultima = Cidade(-1, "", Coordenadas());
+	int lastId = -1;
+
 
 	ifstream cidades("cidades.txt");
 	
@@ -547,11 +554,78 @@ void Agencia::carregarGrafo(int choice, periodo per){
 				gv->setVertexLabel(id, nome);
 				gv->setVertexSize(id, 15);
 				gv->setVertexColor(id, cores[random]);
+				tempo = Cidade(id, nome, Coordenadas(x, y));
 			}
+
+			float distanciaMapa = sqrt(((abs(y - ultima.getCoordenadas().getY())) ^ 2) + ((abs(x - ultima.getCoordenadas().getX())) ^ 2));
+			float distanciaReal = distanciaMapa * MAP_TO_KM;
+
+			float duracaoViagem = distanciaReal / VEL_MED_AVIAO;
+
+			int duracaoHoras = duracaoViagem;
+			double minutesRemainder = (duracaoViagem - duracaoHoras) * 60;
+			int duracaoMinutos = minutesRemainder;
+
+			stringstream ss;
+			ss << "A viagem demorara " << duracaoHoras << " e " << duracaoMinutos << " minutos.";
+
+			int taxa;
+			
+			switch (per) {
+			case epocaALTA:
+				taxa = 6;
+				break;
+			case epocaMEDIA:
+				taxa = 3;
+				break;
+			case epocaBAIXA:
+				taxa = 2;
+				break;
+			case nonDEFINED:
+				taxa = 0;
+				break;
+			}
+
+			float custoViagem = distanciaMapa * taxa;
+
+
+
+			viagemGrafo.setCusto(custoViagem);
+			viagemGrafo.setDistancia(distanciaReal);
+			
+			if (lastId == -1)
+			{
+				lastId = id;
+			}
+			else
+				{
+				/*if (choice == 1)
+				{*/
+					
+					grafo.addEdge(ultima, tempo, viagemGrafo);
+					grafo.addEdge(tempo, ultima, viagemGrafo);
+					gv->addEdge(edgeId, lastId, id, EdgeType::UNDIRECTED);
+					dadosGrafo.push_back(DadosGraph(edgeId, lastId, id));
+					dadosGrafo.push_back(DadosGraph(edgeId, id, lastId));
+					lastId = id;
+					edgeId++;
+				/*}
+				else
+				{					
+					graph.addEdge(ultima, tempo, travel, line);
+					graph.addEdge(tempo, ultima, dist * MAP_TO_METERS, line);
+					gv->addEdge(edgeId, lastId, id, EdgeType::UNDIRECTED);
+					dg.push_back(DadosGraficos(edgeId, lastId, id));
+					dg.push_back(DadosGraficos(edgeId, id, lastId));
+					lastId = id;
+					edgeId++;
+				}*/
+			}
+
+			ultima = tempo;
+
 		}
 
-			
-		
 			cidades.close();
 		}
 	else {
