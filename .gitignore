@@ -268,3 +268,5 @@ __pycache__/
 /CG1/CG1.vcxproj
 /CG1/docs(GV)/html
 /.gitignore
+/CG1/src/CG1.vcxproj.filters
+/CG1/src/CG1.sln
