@@ -19,7 +19,7 @@ class Cliente {
 	int id;
 	string nome;
 	unsigned long numTelefone;
-	unsigned long ss; //seguranca social
+	unsigned long long ss; //seguranca social
 	unsigned long nif;
 	string morada;
 	string email;
@@ -35,7 +35,7 @@ public:
 	 * @param string morada - morada
 	 * @param string email - email
 	 */
-	Cliente(string nome, unsigned long numTelefone, unsigned long ss,
+	Cliente(string nome, unsigned long numTelefone, unsigned long long ss,
 			unsigned long nif, string morada, string email);
 
 	/**
@@ -48,7 +48,7 @@ public:
 	 * @param string morada - morada
 	 * @param string email - email
 	 */
-	Cliente(int id, string nome, unsigned long numTelefone, unsigned long ss,
+	Cliente(int id, string nome, unsigned long numTelefone, unsigned long long ss,
 			unsigned long nif, string morada, string email);
 
 	/**
@@ -73,7 +73,7 @@ public:
 	 * @brief Funcao de retorno para seguranca social do cliente
 	 * @return unsigned long seguranca social
 	 */
-	unsigned long getSs() const;
+	unsigned long long getSs() const;
 
 	/**
 	 * @brief Funcao de retorno para contribuinte do cliente
@@ -109,7 +109,7 @@ public:
 	 * @brief Funcao modificadora para seguranca social do Cliente
 	 * @param unsigned long seguranca social
 	 */
-	void setSs(unsigned long ss);
+	void setSs(unsigned long long ss);
 
 	/**
 	 * @brief Funcao modificadora para contribuinte do Cliente

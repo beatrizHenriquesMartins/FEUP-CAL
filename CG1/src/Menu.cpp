@@ -18,20 +18,25 @@ void Menu::lerFicheiroClientes() {
 			string nome;
 			string morada;
 			string email;
-			long nt;
-			long nif;
-			long segSocial;
+			string nts;
+			unsigned long nt;
+			string nifs;
+			unsigned long  nif;
+			string segsocials;
+			unsigned long long segSocial;
 
 			ss >> id;
 			getline(ss, lixo, ';');
 
 			getline(ss, nome, ';');
 
-			ss >> nt;
-			getline(ss, lixo, ';');
+			getline(ss, nts, ';');
+			trim(nts);
+			nt = atol(nts.c_str());
 
-			ss >> segSocial;
-			getline(ss, lixo, ';');
+			getline(ss, segsocials, ';');
+			trim(segsocials);
+			segSocial = atoll(segsocials.c_str());
 
 			ss >> nif;
 			getline(ss, lixo, ';');
@@ -136,7 +141,7 @@ void Menu::escreverFicheiroClientes() {
 		int id = this->clientes[j]->getID();
 		string nome = this->clientes[j]->getNome();
 		unsigned long nt = this->clientes[j]->getNumTelefone();
-		unsigned long ss = this->clientes[j]->getSs();
+		unsigned long long ss = this->clientes[j]->getSs();
 		unsigned long nif = this->clientes[j]->getNif();
 		string morada = this->clientes[j]->getMorada();
 		string email = this->clientes[j]->getEmail();
@@ -224,7 +229,7 @@ void Menu::menuInicial() {
 
 	int op;
 
-	cout << "Opção: ";
+	cout << "Opcao: ";
 	cin >> op;
 
 	if (op > 6 || op < 1) {
@@ -284,7 +289,7 @@ void Menu::menuNovoCliente() {
 		numeroValido = lengthNumber(numTel);
 	} while (numTel == NULL && numeroValido != 9);
 
-	unsigned long ss = 0;
+	unsigned long long ss = 0;
 	do {
 		cout << endl << setw(8) << " " << "Segurança Social: ";
 		cin >> ss;
@@ -326,8 +331,8 @@ void Menu::menuListaClientes() {
 	cout << endl;
 
 	cout << setw(8) << " " << setw(4) << "ID" << setw(39) << " " << "Nome"
-			<< setw(13) << "Telemovel" << setw(14) << "SS" << setw(11) << "NIF"
-			<< setw(40) << "Morada" << setw(23) << "Email" << endl;
+			<< setw(12) << "Telemovel" << setw(14) << "SS" << setw(11) << "NIF"
+			<< setw(41) << "Morada" << setw(23) << "Email" << endl;
 
 	for (int i = 0; i < this->clientes.size(); i++) {
 		cout << setw(8) << " " << setw(4) << this->clientes[i]->getID()
