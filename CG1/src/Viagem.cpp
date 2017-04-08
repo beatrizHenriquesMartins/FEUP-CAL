@@ -55,6 +55,26 @@ bool Viagem::checkEpocaMedia(Data dia) {
 	 //meses de setembro, junho e novembro
 }
 
+double Viagem::getCusto() const
+{
+	return this->custo;
+}
+
+double Viagem::getDistancia() const
+{
+	return this->distancia;
+}
+
+void Viagem::setCusto(double custo)
+{
+	this->custo = custo;
+}
+
+void Viagem::setDistancia(double distancia)
+{
+	this->distancia = distancia;
+}
+
 periodo Viagem::getPeriodoIda(Data ida) {
 
 	if (checkEpocaAlta(ida)) return static_cast<periodo>(3);
