@@ -25,26 +25,19 @@ void Menu::lerFicheiroClientes() {
 			string segsocials;
 			unsigned long long segSocial;
 
-			cout << endl << line << endl;
-
 			ss >> id;
 			getline(ss, lixo, ';');
 
 			getline(ss, nome, ';');
 
-			//ss >> nt;
 			getline(ss, nts, ';');
 			trim(nts);
 			nt = atol(nts.c_str());
 
-			cout << endl << nts << "/" << nt << endl;
-
-			//ss >> segSocial;
 			getline(ss, segsocials, ';');
 			trim(segsocials);
 			segSocial = atoll(segsocials.c_str());
 
-			cout << endl<<"ss" << segsocials << "/" << segSocial<< endl;
 			ss >> nif;
 			getline(ss, lixo, ';');
 
@@ -55,8 +48,6 @@ void Menu::lerFicheiroClientes() {
 			trim(nome);
 			trim(morada);
 			trim(email);
-
-			cout << morada << email<<endl;
 
 			Cliente* c = new Cliente(nome, nt, segSocial, nif, morada, email);
 
