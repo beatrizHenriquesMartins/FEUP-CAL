@@ -18,10 +18,11 @@
 enum periodo { nonDEFINED,  epocaBAIXA, epocaMEDIA, epocaALTA };
 
 
+
 class Viagem {
 	Data ida;
 	Data volta;
-	vector<Transporte> transporte;
+	vector<Transporte> transportes;
 	vector<Estadia> estadia;
 	periodo epoca;
 	double custo; //peso
@@ -38,16 +39,23 @@ public:
 	Viagem(Data ida, double custo, double distancia);
 	Viagem(Data ida, Data volta, double custo, double distancia);
 
+	Viagem(Data ida, Data volta, Transporte T);
+
+
+	
+
 	bool checkEpocaAlta(Data dia);
 	bool checkEpocaBaixa(Data dia);
 	bool checkEpocaMedia(Data dia);
 
 	double getCusto() const;
 	double getDistancia() const;
+	vector<Transporte> getMeiosTransporte() const;
 
 	void setCusto(double custo);
 	void setDistancia(double distancia);
-
+	void addTransporte(Transporte T);
+	void setPeriodo(periodo epoca);
 	periodo getPeriodo();
 };
 

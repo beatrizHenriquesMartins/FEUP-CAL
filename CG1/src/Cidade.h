@@ -15,7 +15,6 @@
 using namespace std;
 
 class Cidade {
-	static unsigned int idstatic;
 	int id;
 	string nome;
 	Coordenadas coordenadas;

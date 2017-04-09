@@ -53,7 +53,7 @@ void Agencia::lerFicheiroClientes() {
 				<< endl << endl;
 	}
 }
-
+/*
 void Agencia::lerFicheiroAvioes() {
 	ifstream fileA("aviao.txt");
 
@@ -125,7 +125,7 @@ void Agencia::lerFicheiroAvioes() {
 		cout << endl << "Não conseguiu abrir ficheiro de Voos" << endl << endl
 				<< endl;
 	}
-}
+}*/
 
 void Agencia::escreverFicheiroClientes() {
 	ofstream file("clientes.txt");
@@ -195,7 +195,7 @@ Agencia::Agencia() {
 	
 	lerFicheiroClientes();
 
-	lerFicheiroAvioes();
+	//lerFicheiroAvioes();
 
 	menuInicial();
 
@@ -499,9 +499,6 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 	
 	int edgeId = 0;
 	Cidade tempo;
-	Viagem viagemGrafo = viag;
-	
-	periodo per = viagemGrafo.getPeriodo();
 	
 	srand(time(NULL));
 
@@ -557,58 +554,56 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 				tempo = Cidade(id, nome, Coordenadas(x, y));
 			}
 
-			float distanciaMapa = sqrt(((abs(y - ultima.getCoordenadas().getY())) ^ 2) + ((abs(x - ultima.getCoordenadas().getX())) ^ 2));
-			float distanciaReal = distanciaMapa * MAP_TO_KM;
+	// ENCHER COM VIAGENS DE AVIAO (DIRETAS)
+		
+			Hora partida = Hora(6, 33);
+			Transporte aviao = Transporte(AVIAO, partida);
+			Viagem viagemGrafo;
 
-			float duracaoViagem = distanciaReal / VEL_MED_AVIAO;
-
-			int duracaoHoras = duracaoViagem;
-			double minutesRemainder = (duracaoViagem - duracaoHoras) * 60;
-			int duracaoMinutos = minutesRemainder;
-
-			stringstream ss;
-			ss << "A viagem demorara " << duracaoHoras << " e " << duracaoMinutos << " minutos.";
-
-			int taxa;
-			
-			switch (per) {
-			case epocaALTA:
-				taxa = 6;
-				break;
-			case epocaMEDIA:
-				taxa = 3;
-				break;
-			case epocaBAIXA:
-				taxa = 2;
-				break;
-			case nonDEFINED:
-				taxa = 0;
-				break;
-			}
-
-			float custoViagem = distanciaMapa * taxa;
-
-
-
-			viagemGrafo.setCusto(custoViagem);
-			viagemGrafo.setDistancia(distanciaReal);
-			
 			if (lastId == -1)
 			{
 				lastId = id;
 			}
 			else
 				{
+
 				/*if (choice == 1)
 				{*/
-					
+					//ligacao com cidade  anterior
+
+					viagemGrafo = criadorViagem(ultima, tempo, viag, aviao);
+				
 					grafo.addEdge(ultima, tempo, viagemGrafo);
 					grafo.addEdge(tempo, ultima, viagemGrafo);
+					
 					gv->addEdge(edgeId, lastId, id, EdgeType::UNDIRECTED);
+					gv->setEdgeLabel(edgeId, "aviao");
+
 					dadosGrafo.push_back(DadosGraph(edgeId, lastId, id));
 					dadosGrafo.push_back(DadosGraph(edgeId, id, lastId));
 					lastId = id;
 					edgeId++;
+
+					for (size_t i = 0; i < grafo.getNumVertex(); i++)
+					{
+						if (grafo.getVertexSet()[i]->getInfo().getId() != tempo.getId() && grafo.getVertexSet()[i]->getInfo().getId() != ultima.getId()) {
+							
+							int newid = grafo.getVertexSet()[i]->getInfo().getId();
+							
+							viagemGrafo = criadorViagem(grafo.getVertexSet()[i]->getInfo(), tempo, viag, aviao);
+
+							grafo.addEdge(grafo.getVertexSet()[i]->getInfo(), tempo, viagemGrafo);
+							grafo.addEdge(tempo, grafo.getVertexSet()[i]->getInfo(), viagemGrafo);
+
+							gv->addEdge(edgeId, newid, id, EdgeType::UNDIRECTED);
+							gv->setEdgeLabel(edgeId, "aviao");
+
+							dadosGrafo.push_back(DadosGraph(edgeId, newid, id));
+							dadosGrafo.push_back(DadosGraph(edgeId, id, newid));
+
+							edgeId++;
+						}
+					}
 				/*}
 				else
 				{					
@@ -631,6 +626,68 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 	else {
 		cout << endl << "Não conseguiu abrir ficheiro de cidades" << endl << endl << endl;
 	}
+
+
+}
+
+Viagem Agencia::criadorViagem(Cidade ponto1, Cidade ponto2, Viagem viag, Transporte T) {
+
+	Viagem viagemRetornada;
+
+	viagemRetornada.setPeriodo(viag.getPeriodo());
+
+	float distanciaMapa = sqrt(((abs(ponto1.getCoordenadas().getY() - ponto2.getCoordenadas().getY())) ^ 2) + ((abs(ponto1.getCoordenadas().getX() - ponto2.getCoordenadas().getX())) ^ 2));
+	
+	float distanciaReal = distanciaMapa * MAP_TO_KM;
+	
+	float duracaoViagem;
+	
+	if (T.getTipo() == AVIAO)
+	 duracaoViagem = distanciaReal / VEL_MED_AVIAO;
+	else if (T.getTipo() == BUS)
+	 duracaoViagem = distanciaReal / VEL_MED_BUS;
+
+	int duracaoHoras = duracaoViagem;
+	double minutesRemainder = (duracaoViagem - duracaoHoras) * 60;
+	int duracaoMinutos = minutesRemainder;
+
+	Hora duracao = Hora(duracaoHoras, duracaoMinutos);
+
+	stringstream ss;
+	ss << "A viagem demorara " << duracaoHoras << " e " << duracaoMinutos << " minutos.";
+
+	int taxa;
+
+	
+	
+	switch (viagemRetornada.getPeriodo()) {
+	case epocaALTA:
+		if (T.getTipo() == AVIAO )taxa = 6;
+		if (T.getTipo() == BUS) taxa = 3;
+		break;
+	case epocaMEDIA:
+		if (T.getTipo() == AVIAO)taxa = 3;
+		if (T.getTipo() == BUS) taxa = 1.5;
+		break;
+	case epocaBAIXA:
+		if (T.getTipo() == AVIAO) taxa = 2;
+		if (T.getTipo() == BUS) taxa = 1;
+		break;
+	case nonDEFINED:
+		taxa = 0;
+		break;
+	}
+
+	float custoViagem = distanciaMapa * taxa;
+	
+
+	T.setPreco(custoViagem);
+	T.setDuracao(duracao);
+	viagemRetornada.setDistancia(distanciaReal);
+
+	viagemRetornada.addTransporte(T);
+
+	return viagemRetornada;
 
 
 }

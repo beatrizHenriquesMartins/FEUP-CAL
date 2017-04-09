@@ -11,7 +11,6 @@
 
 using namespace std;
 
-unsigned int Cidade::idstatic = 1;
 
 
 Cidade::Cidade() {
@@ -21,10 +20,9 @@ Cidade::Cidade() {
 }
 
 Cidade::Cidade(int id, string nome, Coordenadas coordenadas) {
-	this->id = idstatic;
+	this->id = id;
 	this->nome = nome;
 	this->coordenadas = coordenadas;
-	idstatic++;
 
 }
 

@@ -5,8 +5,8 @@
  *      Author: beatrizHm
  */
 
-#ifndef SRC_MENU_H_
-#define SRC_MENU_H_
+#ifndef SRC_AGENCIA_H_
+#define SRC_AGENCIA_H_
 
 #include <string>
 #include <iostream>
@@ -28,6 +28,7 @@
 
 #define MAP_TO_KM 6.14432 // escalar que converte a distancia no mapa para distancia real em km
 #define VEL_MED_AVIAO 890 // velocidade media de um aviao, em km/h
+#define VEL_MED_BUS 100
 
 static vector<string> cores = { BLUE, RED, PINK, BLACK, WHITE, ORANGE, YELLOW, GREEN, CYAN, GRAY, DARK_GRAY, LIGHT_GRAY, MAGENTA };
 
@@ -40,7 +41,7 @@ class Agencia {
 	vector<DadosGraph> dadosGrafo;
 public:
 	void lerFicheiroClientes();
-	void lerFicheiroAvioes();
+	//void lerFicheiroAvioes();
 	void escreverFicheiroClientes();
 	void escreverFicheiroAvioes();
 	void trim(string &str);
@@ -62,6 +63,8 @@ public:
 
 	void carregarGrafo(int choice, Viagem viag);
 
+	Viagem criadorViagem(Cidade ponto1, Cidade ponto2, Viagem viag, Transporte T);
+
 };
 
-#endif /* SRC_MENU_H_ */
+#endif /* SRC_AGENCIA_H_ */

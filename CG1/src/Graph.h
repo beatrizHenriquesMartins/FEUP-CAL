@@ -279,6 +279,8 @@ public:
 	vector<T> getfloydWarshallPath(const T &origin, const T &dest);
 	void getfloydWarshallPathAux(int index1, int index2, vector<T> & res);
 
+	T getVertexbyId(int id);
+
 	//exercicio 8
 	Graph<T> clone();
 	void resetEdgeFlow();
@@ -695,6 +697,16 @@ void Graph<T>::getfloydWarshallPathAux(int index1, int index2, vector<T> & res)
 
 		getfloydWarshallPathAux(P[index1][index2],index2, res);
 	}
+}
+
+template<class T>
+T Graph<T>::getVertexbyId(int id) {
+	for (int i = 0; i < vertexSet.size(); i++) {
+		if (vertexSet[i]->getInfo().getId() == id) {
+			return vertexSet[i]->getInfo();
+		}
+	}
+	return vertexSet[0]->getInfo();
 }
 
 

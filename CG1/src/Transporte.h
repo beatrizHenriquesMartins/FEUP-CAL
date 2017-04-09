@@ -16,7 +16,7 @@
 using namespace std;
 
 enum tipoTransporte {
-	AVIAO
+	AVIAO, BUS
 };
 
 /*, BARCO - para já fica só o avião para simplificar*/
@@ -24,9 +24,6 @@ enum tipoTransporte {
 class Transporte {
 
 	tipoTransporte meioTransporte;
-	string origem;
-	string destino;
-	Data data;
 	Hora horaPartida;
 	Hora duracao;
 	float preco;
@@ -43,8 +40,8 @@ public:
 	 * @param Hora horaPartida - hora de partida (hh:mm)
 	 * @param Hora duracao - duracao da viagem (hh:mm)
 	 */
-	Transporte(tipoTransporte meio, string origem, string destino, Data data,
-			Hora horaPartida, Hora duracao, float preco);
+	Transporte(tipoTransporte meio, Hora horaPartida);
+
 
 	/**
 	 * @brief Funcao de retorno do preco do Transporte
@@ -64,17 +61,6 @@ public:
 	 */
 	tipoTransporte getTipo() const;
 
-	/**
-	 * @brief Funcao de retorno da origem do Transporte
-	 * @return string origem
-	 */
-	string getOrigem() const;
-
-	/**
-	 * @brief Funcao de retorno da destino do Transporte
-	 * @return string destino
-	 */
-	string getDestino() const;
 
 	/**
 	 * @brief Funcao de retorno da hora de partida do Transporte
@@ -88,11 +74,7 @@ public:
 	 */
 	void setPreco(float preco);
 
-	/**
-	 * @brief Funcao modificadora da data do transporte
-	 * @param Data data
-	 */
-	void setData(Data data);
+	void setDuracao(Hora hora);
 
 	/**
 	 * @brief Funcao modificadora do tipo do transporte
@@ -100,17 +82,7 @@ public:
 	 */
 	void setTipo(tipoTransporte meioTransporte);
 
-	/**
-	 * @brief Funcao modificadora da origem do transporte
-	 * @param string Origem
-	 */
-	void setOrigem(string origem);
-
-	/**
-	 * @brief Funcao modificadora do destino do transporte
-	 * @param string destino
-	 */
-	void setDestino(string destino);
+	
 
 	/**
 	 * @brief Funcao modificadora da hora de partida do transporte
