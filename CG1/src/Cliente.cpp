@@ -9,7 +9,7 @@
 
 int Cliente::ultId = 1;
 
-Cliente::Cliente(string nome, unsigned long numTelefone, unsigned long ss,
+Cliente::Cliente(string nome, unsigned long numTelefone, unsigned long long ss,
 		unsigned long nif, string morada, string email) {
 
 	this->id = ultId++;
@@ -23,7 +23,7 @@ Cliente::Cliente(string nome, unsigned long numTelefone, unsigned long ss,
 }
 
 Cliente::Cliente(int id, string nome, unsigned long numTelefone,
-		unsigned long ss, unsigned long nif, string morada, string email) {
+		unsigned long long ss, unsigned long nif, string morada, string email) {
 	this->id = id;
 	this->nome = nome;
 	this->numTelefone = numTelefone;
@@ -46,7 +46,7 @@ unsigned long Cliente::getNumTelefone() const {
 	return this->numTelefone;
 }
 
-unsigned long Cliente::getSs() const {
+unsigned long long Cliente::getSs() const {
 	return this->ss;
 }
 
@@ -70,7 +70,7 @@ void Cliente::setNumTelefone(unsigned long numTelefone) {
 	this->numTelefone = numTelefone;
 }
 
-void Cliente::setSs(unsigned long ss) {
+void Cliente::setSs(unsigned long long ss) {
 	this->ss = ss;
 }
 
