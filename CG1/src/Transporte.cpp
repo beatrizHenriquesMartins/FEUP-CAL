@@ -7,7 +7,15 @@
 
 #include "Transporte.h"
 
-Transporte::Transporte(tipoTransporte meio, Hora horaPartida) {
+	 Transporte::Transporte()
+ {
+		 this->meioTransporte = AVIAO;
+		 this->horaPartida = Hora();
+		 this->duracao = Hora();
+		 this->preco = 0;
+ }
+
+ Transporte::Transporte(tipoTransporte meio, Hora horaPartida) {
 	this->meioTransporte = meio;
 	this->horaPartida = horaPartida;
 	

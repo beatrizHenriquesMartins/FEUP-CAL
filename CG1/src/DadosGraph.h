@@ -12,11 +12,13 @@ class DadosGraph {
 	int idAresta;
 	int idOrigem;
 	int idDestino;
+	string edgeLabel;
 public:
-	DadosGraph(int idAresta, int idOrigem, int idDestino) {
+	DadosGraph(int idAresta, int idOrigem, int idDestino, string edgeLabel) {
 		this->idAresta = idAresta;
 		this->idOrigem = idOrigem;
 		this->idDestino = idDestino;
+		this->edgeLabel = edgeLabel;
 	}
 
 	int getIdAresta() const {
@@ -41,6 +43,10 @@ public:
 
 	void setIdOrigem(int idOrigem) {
 		this->idOrigem = idOrigem;
+	}
+
+	string getEdgeLabel() {
+		return this->edgeLabel;
 	}
 };
 

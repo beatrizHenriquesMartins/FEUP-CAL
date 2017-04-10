@@ -388,7 +388,8 @@ void Agencia::menuProcuraClientes() {
 	menuInicial();
 }
 
-int Agencia::menuNovaViagem() {
+
+void Agencia::novaViagem() {
 	
 	cin.ignore(1);
 	cout << "\n" << "\n" << "\n" << "\n";
@@ -397,23 +398,8 @@ int Agencia::menuNovaViagem() {
 	cout << setw(5) << " " << "---------------" << endl;
 	cout << endl << endl;
 
-	
-	cout << " Deseja realizar uma nova viagem poupando no custo ou poupando no tempo de viagem?\n";
-
-	int escolha = -1;
-	while (escolha != 1 && escolha != 2) {
-		cout << "\n 1. Viagem com custo mais baixo\n";
-		cout << " 2. Viagem com distancia (duracao) mais baixa\n";
-		cout << "> "; cin >> escolha;
-		if (escolha != 1 && escolha != 2) cout << " Por favor selecione uma opcao valida.\n";
-	}
-
-	return escolha;
-}
-
-void Agencia::novaViagem() {
 	Viagem viagem;
-	int peso = menuNovaViagem();
+	int peso = 1;
 
 	int dia;
 	int mes;
@@ -458,6 +444,7 @@ void Agencia::novaViagem() {
 	carregarGrafo(peso,viagem);
 	
 	getchar();
+	escolhaDestinos();
 
 	//cout << endl << "|" << partida << "|" << setw(4) << " " << "|" << destino
 		//<< "|" << endl;
@@ -579,31 +566,37 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 					gv->addEdge(edgeId, lastId, id, EdgeType::UNDIRECTED);
 					gv->setEdgeLabel(edgeId, "aviao");
 
-					dadosGrafo.push_back(DadosGraph(edgeId, lastId, id));
-					dadosGrafo.push_back(DadosGraph(edgeId, id, lastId));
+					dadosGrafo.push_back(DadosGraph(edgeId, lastId, id, "aviao"));
+					dadosGrafo.push_back(DadosGraph(edgeId, id, lastId,"aviao"));
 					lastId = id;
 					edgeId++;
 
-					for (size_t i = 0; i < grafo.getNumVertex(); i++)
-					{
-						if (grafo.getVertexSet()[i]->getInfo().getId() != tempo.getId() && grafo.getVertexSet()[i]->getInfo().getId() != ultima.getId()) {
+
+				/*
+						for (size_t i = 0; i < grafo.getNumVertex(); i++)	{
+						
+							if (grafo.getVertexSet()[i]->getInfo().getId() != tempo.getId() && grafo.getVertexSet()[i]->getInfo().getId() != ultima.getId()) {
 							
 							int newid = grafo.getVertexSet()[i]->getInfo().getId();
+							Cidade newcidade = grafo.getVertexSet()[i]->getInfo();
 							
+
 							viagemGrafo = criadorViagem(grafo.getVertexSet()[i]->getInfo(), tempo, viag, aviao);
 
-							grafo.addEdge(grafo.getVertexSet()[i]->getInfo(), tempo, viagemGrafo);
-							grafo.addEdge(tempo, grafo.getVertexSet()[i]->getInfo(), viagemGrafo);
+							grafo.addEdge(newcidade, tempo, viagemGrafo);
+							grafo.addEdge(tempo, newcidade, viagemGrafo);
 
 							gv->addEdge(edgeId, newid, id, EdgeType::UNDIRECTED);
 							gv->setEdgeLabel(edgeId, "aviao");
 
-							dadosGrafo.push_back(DadosGraph(edgeId, newid, id));
-							dadosGrafo.push_back(DadosGraph(edgeId, id, newid));
+							dadosGrafo.push_back(DadosGraph(edgeId, newid, id, "aviao"));
+							dadosGrafo.push_back(DadosGraph(edgeId, id, newid, "aviao"));
 
 							edgeId++;
 						}
-					}
+					}*/
+					
+
 				/*}
 				else
 				{					
@@ -626,6 +619,90 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 	else {
 		cout << endl << "Não conseguiu abrir ficheiro de cidades" << endl << endl << endl;
 	}
+
+	/*
+	
+
+	// carregador de viagens de BUS
+
+	Hora partida = Hora(9, 33);
+	Transporte bus = Transporte(BUS, partida);
+
+
+	// porto lisboa
+	Viagem viagemGrafoBUS = criadorViagem(grafo.getVertexSet()[0]->getInfo(), grafo.getVertexSet()[1]->getInfo(), viag, bus);
+	grafo.addEdge(grafo.getVertexSet()[0]->getInfo(), grafo.getVertexSet()[1]->getInfo(), viagemGrafoBUS); 
+	grafo.addEdge(grafo.getVertexSet()[1]->getInfo(), grafo.getVertexSet()[0]->getInfo(), viagemGrafoBUS);
+	
+	gv->addEdge(edgeId, grafo.getVertexSet()[0]->getInfo().getId(), grafo.getVertexSet()[1]->getInfo().getId(), EdgeType::UNDIRECTED);
+	gv->setEdgeLabel(edgeId, "bus");
+
+
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[0]->getInfo().getId(), grafo.getVertexSet()[1]->getInfo().getId(), "bus"));
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[1]->getInfo().getId(), grafo.getVertexSet()[0]->getInfo().getId(), "bus"));
+
+	edgeId++;
+
+
+	// lisboa madrid
+	viagemGrafoBUS = criadorViagem(grafo.getVertexSet()[0]->getInfo(), grafo.getVertexSet()[2]->getInfo(), viag, bus);
+	grafo.addEdge(grafo.getVertexSet()[0]->getInfo(), grafo.getVertexSet()[2]->getInfo(), viagemGrafoBUS);
+	grafo.addEdge(grafo.getVertexSet()[2]->getInfo(), grafo.getVertexSet()[0]->getInfo(), viagemGrafoBUS);
+
+	gv->addEdge(edgeId, grafo.getVertexSet()[0]->getInfo().getId(), grafo.getVertexSet()[2]->getInfo().getId(), EdgeType::UNDIRECTED);
+	gv->setEdgeLabel(edgeId, "bus");
+
+
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[0]->getInfo().getId(), grafo.getVertexSet()[2]->getInfo().getId(), "bus"));
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[2]->getInfo().getId(), grafo.getVertexSet()[0]->getInfo().getId(), "bus"));
+
+	edgeId++;
+
+	// madrid paris (ou seja da lisboa- madrid-paris)
+	viagemGrafoBUS = criadorViagem(grafo.getVertexSet()[4]->getInfo(), grafo.getVertexSet()[2]->getInfo(), viag, bus);
+	grafo.addEdge(grafo.getVertexSet()[4]->getInfo(), grafo.getVertexSet()[2]->getInfo(), viagemGrafoBUS);
+	grafo.addEdge(grafo.getVertexSet()[2]->getInfo(), grafo.getVertexSet()[4]->getInfo(), viagemGrafoBUS);
+
+	gv->addEdge(edgeId, grafo.getVertexSet()[4]->getInfo().getId(), grafo.getVertexSet()[2]->getInfo().getId(), EdgeType::UNDIRECTED);
+	gv->setEdgeLabel(edgeId, "bus");
+
+
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[4]->getInfo().getId(), grafo.getVertexSet()[2]->getInfo().getId(), "bus"));
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[2]->getInfo().getId(), grafo.getVertexSet()[4]->getInfo().getId(),"bus"));
+
+	edgeId++;
+
+	// porto sevilha 
+
+	viagemGrafoBUS = criadorViagem(grafo.getVertexSet()[1]->getInfo(), grafo.getVertexSet()[7]->getInfo(), viag, bus);
+	grafo.addEdge(grafo.getVertexSet()[7]->getInfo(), grafo.getVertexSet()[1]->getInfo(), viagemGrafoBUS);
+	grafo.addEdge(grafo.getVertexSet()[1]->getInfo(), grafo.getVertexSet()[7]->getInfo(), viagemGrafoBUS);
+
+	gv->addEdge(edgeId, grafo.getVertexSet()[7]->getInfo().getId(), grafo.getVertexSet()[1]->getInfo().getId(), EdgeType::UNDIRECTED);
+	gv->setEdgeLabel(edgeId, "bus");
+
+
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[7]->getInfo().getId(), grafo.getVertexSet()[1]->getInfo().getId(), "bus"));
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[1]->getInfo().getId(), grafo.getVertexSet()[7]->getInfo().getId(), "bus"));
+
+	edgeId++;
+
+	// sevilha barcelona (porto - sevilha - barcelona)
+
+	viagemGrafoBUS = criadorViagem(grafo.getVertexSet()[4]->getInfo(), grafo.getVertexSet()[7]->getInfo(), viag, bus);
+	grafo.addEdge(grafo.getVertexSet()[7]->getInfo(), grafo.getVertexSet()[4]->getInfo(), viagemGrafoBUS);
+	grafo.addEdge(grafo.getVertexSet()[4]->getInfo(), grafo.getVertexSet()[7]->getInfo(), viagemGrafoBUS);
+
+	gv->addEdge(edgeId, grafo.getVertexSet()[7]->getInfo().getId(), grafo.getVertexSet()[4]->getInfo().getId(), EdgeType::UNDIRECTED);
+	gv->setEdgeLabel(edgeId, "bus");
+
+
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[7]->getInfo().getId(), grafo.getVertexSet()[4]->getInfo().getId(), "bus"));
+	dadosGrafo.push_back(DadosGraph(edgeId, grafo.getVertexSet()[4]->getInfo().getId(), grafo.getVertexSet()[7]->getInfo().getId(), "bus"));
+
+	edgeId++;
+
+	*/
 
 
 }
@@ -690,4 +767,85 @@ Viagem Agencia::criadorViagem(Cidade ponto1, Cidade ponto2, Viagem viag, Transpo
 	return viagemRetornada;
 
 
+}
+
+void Agencia::escolhaDestinos() {
+	string partida;
+	int partidaId;
+	string destino;
+	int destinoId;
+
+	cout << "Por favor insira um local de partida";
+	cin >> partida;
+
+	partidaId = converteCidadeparaID(partida);
+
+
+	cout << " Por favor insira o destino pretendido";
+	cin >> destino;
+	destinoId = converteCidadeparaID(destino);
+	
+	if (destino == partida) {
+		cout << "O destino nao pode ser igual ao local de partida por favor tente novamente." << endl;
+		return;
+	}
+
+
+	
+
+
+	// inicializador graphviewer
+	GraphViewer *gvFinal = new GraphViewer(800, 601, false);
+
+	gvFinal->setBackground("escala200km.png");
+
+	gvFinal->createWindow(800, 601);
+
+	gvFinal->defineEdgeDashed(true);
+	gvFinal->defineVertexColor("blue");
+	gvFinal->defineEdgeColor("black");
+
+	for (size_t i = 0; i < grafo.getNumVertex(); i++)
+	{
+		gvFinal->addNode(grafo.getVertexSet()[i]->getInfo().getId(), grafo.getVertexSet()[i]->getInfo().getCoordenadas().getX(), grafo.getVertexSet()[i]->getInfo().getCoordenadas().getY());
+		gvFinal->setVertexLabel(grafo.getVertexSet()[i]->getInfo().getId(), grafo.getVertexSet()[i]->getInfo().getNome());
+		gvFinal->setVertexSize(grafo.getVertexSet()[i]->getInfo().getId(), 15);
+		gvFinal->setVertexColor(grafo.getVertexSet()[i]->getInfo().getId(), "BLACK");
+
+	}
+
+	
+	
+	
+	
+	
+	for (size_t i = 0; i < dadosGrafo.size(); i++)
+	{
+		if (dadosGrafo[i].getIdOrigem() == partidaId  ) {
+			gvFinal->addEdge(dadosGrafo[i].getIdAresta(), dadosGrafo[i].getIdDestino(), dadosGrafo[i].getIdOrigem(), EdgeType::UNDIRECTED);
+			gvFinal->setEdgeLabel(dadosGrafo[i].getIdAresta(), dadosGrafo[i].getEdgeLabel());
+		}
+	}
+
+	cin.ignore();
+	getchar();
+
+	grafo.dijkstraShortestPath(grafo.getVertexSet()[partidaId - 1]->getInfo());
+	vector<Cidade> caminho = grafo.getPath(grafo.getVertexSet()[partidaId - 1]->getInfo(), grafo.getVertexSet()[destinoId - 1]->getInfo());
+
+	cout << "\n\n O preco total da viagem e: " << grafo.getVertexSet()[destinoId - 1]->getDist() << " euros" << endl;
+
+	cin.ignore();
+	getchar();
+}
+
+int Agencia::converteCidadeparaID(string cidade) {
+
+	for (size_t i = 0; i < grafo.getNumVertex(); i++)
+	{
+		if (grafo.getVertexSet()[i]->getInfo().getNome() == cidade)
+			return grafo.getVertexSet()[i]->getInfo().getId();
+	}
+
+	return 0;
 }

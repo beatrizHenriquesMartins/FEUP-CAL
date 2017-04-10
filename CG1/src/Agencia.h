@@ -38,6 +38,7 @@ class Agencia {
 
 	Graph<Cidade> grafo;
 	GraphViewer *gv;
+	GraphViewer *gvFinal;
 	vector<DadosGraph> dadosGrafo;
 public:
 	void lerFicheiroClientes();
@@ -52,11 +53,14 @@ public:
 	void menuNovoCliente();
 	void menuListaClientes();
 	void menuProcuraClientes();
-	int	menuNovaViagem();
 	void novaViagem();
 	void menuListaDestinos();
 	int procuraCliente(unsigned long nif);
 	int lengthNumber(int n);
+
+	void escolhaDestinos();
+
+	int converteCidadeparaID(string cidade);
 
 
 

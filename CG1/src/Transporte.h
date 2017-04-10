@@ -30,6 +30,8 @@ class Transporte {
 
 public:
 
+	Transporte();
+
 	/**
 	 * @brief Construtor de Transporte
 	 * @param tipoTransporte tipo - tipo de transporte

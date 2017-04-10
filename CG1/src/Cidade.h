@@ -40,6 +40,8 @@ public:
 	void setCoordenadas(Coordenadas coordenadas);
 
 	void setLigados(vector<int> ligados);
+
+	bool friend  operator!=(Cidade&a, const Cidade &rhs);
 };
 
 

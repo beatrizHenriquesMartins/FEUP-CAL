@@ -11,12 +11,14 @@ Viagem::Viagem() {
 	this->ida = Data();
 	this->volta = Data();
 	this->estadia = {};
+	this->transporte = Transporte();
 	epoca = static_cast<periodo>(0);
 }
 
 Viagem::Viagem(Data ida) {
 	this->ida = ida;
 	this->volta = Data();
+	this->transporte = Transporte();
 	this->epoca = getPeriodo();
 
 	//this->transporte  = {}; por fazer
@@ -27,6 +29,7 @@ Viagem::Viagem(Data ida, Data volta)
 {
 	this->ida = ida;
 	this->volta = volta;
+	this->transporte = Transporte();
 	this->epoca = getPeriodo();
 
 }
@@ -35,7 +38,7 @@ Viagem::Viagem(Data ida, Data volta, Transporte T)
 {
 	this->ida = ida;
 	this->volta = volta;
-	this->transportes.push_back(T);
+	this->transporte = T;
 	this->epoca = getPeriodo();
 }
 
@@ -73,7 +76,7 @@ bool Viagem::checkEpocaMedia(Data dia) {
 
 double Viagem::getCusto() const
 {
-	return this->custo;
+	return transporte.getPreco();
 }
 
 double Viagem::getDistancia() const
@@ -81,9 +84,9 @@ double Viagem::getDistancia() const
 	return this->distancia;
 }
 
-vector<Transporte> Viagem::getMeiosTransporte() const
+Transporte Viagem::getMeiosTransporte() const
 {
-	return this->transportes;
+	return this->transporte;
 }
 
 
@@ -100,9 +103,8 @@ void Viagem::setDistancia(double distancia)
 
 void Viagem::addTransporte(Transporte T)
 {
-	this->transportes.push_back(T);
+	this->transporte = T;
 }
-
 
 
 void Viagem::setPeriodo(periodo epoca)

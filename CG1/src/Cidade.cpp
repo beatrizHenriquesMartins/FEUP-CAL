@@ -63,8 +63,18 @@ void Cidade::setLigados(vector<int> ligados) {
 	this->ligados = ligados;
 }
 
+
+
 bool operator==(Cidade&a, const Cidade &rhs) {
 	Cidade estacao = rhs;
 	if (a.getId() == estacao.getId()) return true;
 	else return false;
+}
+
+bool operator!=(Cidade & a, const Cidade & rhs)
+{
+		Cidade cidade = rhs;
+		if (a.getId() != cidade.getId()) return true;
+		else return false;
+	
 }
