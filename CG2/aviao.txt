@@ -1,0 +1,14 @@
+AVIAO
+Lisboa ; Berlim ; 04/05/2017 ; 18:20 ; 3:30 ; 106
+Lisboa ; Bruxelas ; 04/05/2017 ; 19:55 ; 2:35 ; 235
+Lisboa ; Barcelona ; 04/05/2017 ; 21:05 ; 1:50 ; 115
+Lisboa ; Barcelona ; 05/05/2017 ; 21:05 ; 1:50 ; 155
+Lisboa ; Barcelona ; 07/05/2017 ; 10:55 ; 1:50 ; 180
+Lisboa ; Sevilha ; 06/05/2017 ; 21:45 ; 1:10 ; 254
+Lisboa ; Madrid ; 04/05/2017 ; 21:35 ; 1:15 ; 147
+Lisboa ; Madrid ; 04/05/2017 ; 17:15 ; 1:15 ; 162
+Porto ; Bruxelas ; 05/05/2017 ; 13:05 ; 2:15 ; 255
+Porto ; Bruxelas ; 05/05/2017 ; 15:55 ; 2:15 ; 255
+Porto ; Madrid ; 04/05/2017 ; 20:15 ; 1:10 ; 100
+Porto ; Madrid ; 06/05/2017 ; 19:10 ; 1:10 ; 100
+
