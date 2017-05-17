@@ -1,0 +1,3 @@
+1 ; Beatriz de Henriques Martins ; 912345679 ; 12345678901 ; 12345678 ; Rua Padre Arnaldo Rebelo 122, 1ºDto. ; beatrizhm@email.com
+2 ; Joao Carlos ; 912345679 ; 12345678902 ; 12345677 ; Rua Padre Rebelo 122, 1ºDto. ; joaocarlos@email.com
+3 ; Joao Miguel ; 912345679 ; 12345678903 ; 12345676 ; Rua Padre Arnaldo 122, 1ºDto. ; joaomiguel@email.com
