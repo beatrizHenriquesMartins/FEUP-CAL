@@ -43,6 +43,7 @@ class Agencia {
 public:
 	void lerFicheiroClientes();
 	//void lerFicheiroAvioes();
+    void lerFicheiroMonumentos();
 	void escreverFicheiroClientes();
 	void escreverFicheiroAvioes();
 	void trim(string &str);
@@ -54,6 +55,7 @@ public:
 	void menuListaClientes();
 	void menuProcuraClientes();
 	void novaViagem();
+    //void novaViagemPorVisitas();
 	void menuListaDestinos();
 	int procuraCliente(unsigned long nif);
 	int lengthNumber(int n);
@@ -61,14 +63,13 @@ public:
 	void escolhaDestinos();
 
 	int converteCidadeparaID(string cidade);
-
-
-
-
+    
+    GraphViewer* getGrafoInicial()const;
+    
 	void carregarGrafo(int choice, Viagem viag);
+    //void carregarGrafo(int choice);
 
 	Viagem criadorViagem(Cidade ponto1, Cidade ponto2, Viagem viag, Transporte T);
-
 };
 
 #endif /* SRC_AGENCIA_H_ */

@@ -63,7 +63,13 @@ void Cidade::setLigados(vector<int> ligados) {
 	this->ligados = ligados;
 }
 
+void Cidade::setMonumentos(vector<string> monumentos){
+    this->monumentos = monumentos;
+}
 
+vector<string> Cidade::getMonumentos() const{
+    return this->monumentos;
+}
 
 bool operator==(Cidade&a, const Cidade &rhs) {
 	Cidade estacao = rhs;
