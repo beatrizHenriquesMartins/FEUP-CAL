@@ -53,6 +53,7 @@ void Agencia::lerFicheiroClientes() {
 				<< endl << endl;
 	}
 }
+
 /*
 void Agencia::lerFicheiroAvioes() {
 	ifstream fileA("aviao.txt");
@@ -598,7 +599,9 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 				tempo = Cidade(id, nome, Coordenadas(x, y));
 			}
 
-	// ENCHER COM VIAGENS DE AVIAO (DIRETAS)
+	
+			
+			// ENCHER COM VIAGENS DE AVIAO (DIRETAS)
 		
 			Hora partida = Hora(6, 33);
 			Transporte aviao = Transporte(AVIAO, partida);
@@ -789,8 +792,7 @@ Viagem Agencia::criadorViagem(Cidade ponto1, Cidade ponto2, Viagem viag, Transpo
 	ss << "A viagem demorara " << duracaoHoras << " e " << duracaoMinutos << " minutos.";
 
 	int taxa;
-
-	
+		
 	
 	switch (viagemRetornada.getPeriodo()) {
 	case epocaALTA:
@@ -798,7 +800,7 @@ Viagem Agencia::criadorViagem(Cidade ponto1, Cidade ponto2, Viagem viag, Transpo
 		if (T.getTipo() == BUS) taxa = 3;
 		break;
 	case epocaMEDIA:
-		if (T.getTipo() == AVIAO)taxa = 3;
+		if (T.getTipo() == AVIAO) taxa = 3;
 		if (T.getTipo() == BUS) taxa = 1.5;
 		break;
 	case epocaBAIXA:
