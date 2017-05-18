@@ -95,5 +95,8 @@
     <ClInclude Include="src\Viagem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Aresta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

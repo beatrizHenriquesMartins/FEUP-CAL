@@ -543,6 +543,7 @@ int Agencia::lengthNumber(int n) {
 void Agencia::carregarGrafo(int choice, Viagem viag){
 	
 	int edgeId = 0;
+
 	Cidade tempo;
 	
 	srand(time(NULL));
@@ -559,7 +560,8 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 	gv->defineEdgeColor("black");
 
 	Cidade ultima = Cidade(-1, "", Coordenadas());
-	int lastId = -1;
+	
+	
 
 
 	ifstream cidades("cidades.txt");
@@ -568,9 +570,9 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 	if (cidades.is_open()) {
 
 		string linha;
-
 		
 		while (!cidades.eof()) {
+			//carregamento do grafo e do graphviewer com as cidades (nos)
 			Coordenadas coordenadas;
 			int x, y, id;
 			string nome;
@@ -591,6 +593,7 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 
 			int random = rand() % 12 + 1;
 
+
 			if (grafo.addVertex(cidade)) {
 				gv->addNode(id, x, y);
 				gv->setVertexLabel(id, nome);
@@ -599,7 +602,41 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 				tempo = Cidade(id, nome, Coordenadas(x, y));
 			}
 
-	
+		}
+
+		cidades.close();
+
+		
+		vector<Vertex<Cidade> * > vetorCidades = grafo.getVertexSet();
+		ifstream arestas("edges.txt");
+
+		if (arestas.is_open()) {
+
+			string linha;
+			
+			while (getline(arestas, linha)) {
+				size_t pos = linha.find(';');
+				int edgeID = atoi(linha.substr(0, pos).c_str());
+
+				linha = linha.substr(pos + 1);
+				pos = linha.find(';');
+				
+				int IDcidade1 = atoi(linha.substr(0, pos).c_str());
+				
+				linha = linha.substr(pos + 1);
+				pos = linha.find(';');
+																	
+				int IDcidade2 = atoi(linha.substr(pos + 1).c_str());
+				linha = linha.substr(pos + 1);
+
+				string tipoTrans = linha;
+			}
+			
+		
+		}
+
+
+
 			
 			// ENCHER COM VIAGENS DE AVIAO (DIRETAS)
 		
@@ -672,9 +709,7 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 
 			ultima = tempo;
 
-		}
 
-			cidades.close();
 		}
 	else {
 		cout << endl << "Não conseguiu abrir ficheiro de cidades" << endl << endl << endl;

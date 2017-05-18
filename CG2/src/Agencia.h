@@ -21,6 +21,8 @@
 #include "Cidade.h"
 #include "Data.h"
 
+#include "Aresta.h"
+
 
 #include "Graph.h"
 #include "graphviewer.h"
@@ -35,6 +37,8 @@ static vector<string> cores = { BLUE, RED, PINK, BLACK, WHITE, ORANGE, YELLOW, G
 
 class Agencia {
 	vector<Cliente*> clientes;
+
+	vector<Aresta> viagensFich;
 
 	Graph<Cidade> grafo;
 	GraphViewer *gv;
