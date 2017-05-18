@@ -1,0 +1,10 @@
+Lisboa ; Palacio e Quinta da Regaleira ; Mosteiro dos Jeronimos ; Torre de Belem ;
+Porto ; Igreja e Torre dos Clerigos ; Palacio da Bolsa ; Se Catedral do Porto ;  Ponte D.Luis I ;
+Madrid ; Catedral de Almudena ; Palacio Real de Madrid ; Plaza de Toros de Las Ventas ;
+Paris ; Torre Eiffel ; Catedral de Notre Dame ; Panteao ;
+Barcelona ; Sagrada Familia ; Parque Guell ; Palacio da Musica Catala ;
+Londres ; Palacio de Westminster ; Torre de Londres ; Palácio de Buckingham ;
+Berlim ; Muro de Berlim ; Memorial do Holocausto ; Portao de Brandenburgo ;
+Sevilha ; Catedral de Sevilha ; Torre Giralda ; Plaza Nueva ;
+Bruxelas ; Porte de Hal ; Atomium ; Prefeitura de Bruxelas ;
+Roma ; Coliseu ; Fonte de Trevi ; Altar da Patria ;

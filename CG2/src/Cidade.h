@@ -19,6 +19,7 @@ class Cidade {
 	string nome;
 	Coordenadas coordenadas;
 	vector<int> ligados;
+    vector<string> monumentos;
 public:
 	Cidade();
 	Cidade(int id, string nome, Coordenadas coordenadas);
@@ -40,6 +41,10 @@ public:
 	void setCoordenadas(Coordenadas coordenadas);
 
 	void setLigados(vector<int> ligados);
+    
+    void setMonumentos(vector<string> monumentos);
+    
+    vector<string> getMonumentos() const;
 
 	bool friend  operator!=(Cidade&a, const Cidade &rhs);
 };

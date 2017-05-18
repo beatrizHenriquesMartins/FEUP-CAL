@@ -125,7 +125,51 @@ void Agencia::lerFicheiroAvioes() {
 		cout << endl << "Não conseguiu abrir ficheiro de Voos" << endl << endl
 				<< endl;
 	}
-}*/
+}
+*/
+
+void Agencia::lerFicheiroMonumentos(){
+    ifstream fileM("Monumentos.txt");
+    
+    if (fileM.is_open()) {
+        string lixo;
+        
+        vector<string> auxMonumento;
+        
+        string line;
+        while (getline(fileM, line)) {
+            
+            auxMonumento.clear();
+            
+            stringstream ss(line);
+            
+            string cidade;
+
+            getline(ss, cidade, ';');
+            
+            trim(cidade);
+            
+            ss.flush();
+            
+            string tmp;
+            
+            while(getline(ss,tmp,';')){
+                trim(tmp);
+                auxMonumento.push_back(tmp);
+                tmp.clear();
+            }
+            
+            int idCidade = converteCidadeparaID(cidade);
+            
+            //this->grafo.getVertexbyId(idCidade).setMonumentos(auxMonumento);
+        }
+        
+        fileM.close();
+    } else {
+        cout << endl << "Não conseguiu abrir ficheiro de Monumentos" << endl
+        << endl << endl;
+    }
+}
 
 void Agencia::escreverFicheiroClientes() {
 	ofstream file("clientes.txt");
@@ -196,10 +240,10 @@ Agencia::Agencia() {
 	lerFicheiroClientes();
 
 	//lerFicheiroAvioes();
+    
+    lerFicheiroMonumentos();
 
 	menuInicial();
-
-
 }
 
 vector<Cliente*> Agencia::getClientes() const {
@@ -219,12 +263,13 @@ void Agencia::menuInicial() {
 	cout << setw(5) << " " << "2. Listagem de Cliente" << endl;
 	cout << setw(5) << " " << "3. Procura Cliente" << endl;
 	cout << setw(5) << " " << "4. Nova Viagem" << endl;
-	cout << setw(5) << " " << "5. Listagem de Destinos" << endl;
-	cout << setw(5) << " " << "6. Sair" << endl;
+    cout << setw(5) << " " << "5. Nova Viagem por Visitas" << endl;
+	cout << setw(5) << " " << "6. Listagem de Destinos" << endl;
+	cout << setw(5) << " " << "7. Sair" << endl << endl;
 
 	int op;
 
-	cout << "Opção: ";
+	cout << setw(5) << " " << "Opção: ";
 	cin >> op;
 
 	if (op > 6 || op < 1) {
@@ -239,10 +284,12 @@ void Agencia::menuInicial() {
 	} else if (op == 3) {
 		menuProcuraClientes();
 	} else if (op == 4) {
-		novaViagem();
-	} else if (op == 5) {
-		menuListaDestinos();
+        novaViagem();
+    } else if (op == 5) {
+        //novaViagemPorVisitas();
 	} else if (op == 6) {
+		menuListaDestinos();
+	} else if (op == 7) {
 		escreverFicheiroClientes();
 		//escreverFicheiroAvioes();
 		exit(0);
@@ -258,8 +305,10 @@ void Agencia::menuNovoCliente() {
 	cout << endl;
 
 	int numeroValido = 0;
-	unsigned long nif;
-	do {
+	
+    unsigned long nif;
+	
+    do {
 		cout << setw(8) << " " << "NIF: ";
 		cin >> nif;
 		numeroValido = lengthNumber(nif);
@@ -271,35 +320,43 @@ void Agencia::menuNovoCliente() {
 	}
 
 	cin.ignore(1);
-	string nome = "";
-	do {
+	
+    string nome = "";
+	
+    do {
 		cout << endl << setw(8) << " " << "Nome: ";
 		getline(cin, nome);
 	} while (nome == "");
 
-	unsigned long numTel = 0;
-	do {
+	
+    unsigned long numTel = 0;
+	
+    do {
 		cout << endl << setw(8) << " " << "Numero Telemovel: ";
 		cin >> numTel;
 		numeroValido = lengthNumber(numTel);
 	} while (numTel == NULL && numeroValido != 9);
 
 	unsigned long ss = 0;
-	do {
+	
+    do {
 		cout << endl << setw(8) << " " << "Segurança Social: ";
 		cin >> ss;
 		numeroValido = lengthNumber(ss);
 	} while (ss == NULL && numeroValido != 11);
 
 	cin.ignore(1);
-	string morada = "";
-	do {
+	
+    string morada = "";
+	
+    do {
 		cout << endl << setw(8) << " " << "Morada: ";
 		getline(cin, morada);
 	} while (morada == "");
 
 	string email = "";
-	do {
+	
+    do {
 		cout << endl << setw(8) << " " << "Email: ";
 		getline(cin, email);
 	} while (email == "");
@@ -396,7 +453,8 @@ void Agencia::novaViagem() {
 	cout << setw(5) << " " << "---------------" << endl;
 	cout << setw(5) << " " << "| Nova Viagem |" << endl;
 	cout << setw(5) << " " << "---------------" << endl;
-	cout << endl << endl;
+	cout << endl;
+    cout << setw(8) << " " << "NOTA:"<<endl<< setw(8) << " "<<"dd/mm/aaaa"<< endl << setw(8) << " " <<"Se desejar uma viagem só de ida colocar 0 na data de volta."<< endl;
 
 	Viagem viagem;
 	int peso = 1;
@@ -421,15 +479,13 @@ void Agencia::novaViagem() {
 
 	
 	string volta;
-	cout << setw(8) << " " << "Data de volta (insira 0 se nao aplicavel): ";
+	cout << setw(8) << " " << "Data de volta: ";
 	getline(cin, volta);
 	Data dataVolta;
 
 	if (atoi(volta.c_str()) == 0) { 
 		 viagem = Viagem(dataIda);
-		//dataVolta = Data(); 
-	}
-	else {
+	}else{
 		stringstream ss(volta);
 		ss >> dia;
 		getline(ss, volta, '/');
@@ -437,7 +493,7 @@ void Agencia::novaViagem() {
 		getline(ss, volta, '/');
 		ss >> ano;
 		dataVolta= Data(dia, mes, ano);
-		 viagem = Viagem(dataIda, dataVolta);
+        viagem = Viagem(dataIda, dataVolta);
 	}
 	
 
@@ -445,20 +501,21 @@ void Agencia::novaViagem() {
 	
 	getchar();
 	escolhaDestinos();
-
-	//cout << endl << "|" << partida << "|" << setw(4) << " " << "|" << destino
-		//<< "|" << endl;
+    
+    menuInicial();
 }
 
 void Agencia::menuListaDestinos() {
 	cout << "\n" << "\n" << "\n" << "\n";
 	cout << setw(5) << " " << "---------------------" << endl;
-	cout << setw(5) << " " << "| Lista de Clientes |" << endl;
+	cout << setw(5) << " " << "| Lista de Destinos |" << endl;
 	cout << setw(5) << " " << "---------------------" << endl;
 	cout << endl;
 
 	cout << setw(8) << " " << setw(15) << "Partida" << setw(3) << "-"
 			<< setw(15) << "Destino" << endl;
+    
+    
 
 	menuInicial();
 }
@@ -703,8 +760,6 @@ void Agencia::carregarGrafo(int choice, Viagem viag){
 	edgeId++;
 
 	*/
-
-
 }
 
 Viagem Agencia::criadorViagem(Cidade ponto1, Cidade ponto2, Viagem viag, Transporte T) {
@@ -770,73 +825,68 @@ Viagem Agencia::criadorViagem(Cidade ponto1, Cidade ponto2, Viagem viag, Transpo
 }
 
 void Agencia::escolhaDestinos() {
-	string partida;
-	int partidaId;
-	string destino;
-	int destinoId;
+    string partida;
+    
+    int partidaId;
+    
+    string destino;
+    
+    int destinoId;
+    
+    cout << setw(8) << " " << "Local de partida: ";
+    cin >> partida;
+    
+    partidaId = converteCidadeparaID(partida);
+    
+    
+    cout << setw(8) << " " << "Destino: ";
+    cin >> destino;
+    
+    destinoId = converteCidadeparaID(destino);
+    
+    if (destino == partida) {
+        cout << setw(8) << " " << "O destino nao pode ser igual ao local de partida por favor tente novamente" << endl;
+        return;
+    }
+    
+    // inicializador graphviewer
+    GraphViewer *gvFinal = new GraphViewer(800, 601, false);
+    
+    gvFinal->setBackground("escala200km.png");
+    
+    gvFinal->createWindow(800, 601);
+    
+    gvFinal->defineEdgeDashed(true);
+    gvFinal->defineVertexColor("blue");
+    gvFinal->defineEdgeColor("black");
+    
+    for (size_t i = 0; i < grafo.getNumVertex(); i++) {
+        gvFinal->addNode(grafo.getVertexSet()[i]->getInfo().getId(), grafo.getVertexSet()[i]->getInfo().getCoordenadas().getX(), grafo.getVertexSet()[i]->getInfo().getCoordenadas().getY());
+        gvFinal->setVertexLabel(grafo.getVertexSet()[i]->getInfo().getId(), grafo.getVertexSet()[i]->getInfo().getNome());
+        gvFinal->setVertexSize(grafo.getVertexSet()[i]->getInfo().getId(), 15);
+        gvFinal->setVertexColor(grafo.getVertexSet()[i]->getInfo().getId(), "BLACK");
+        
+    }
 
-	cout << "Por favor insira um local de partida";
-	cin >> partida;
-
-	partidaId = converteCidadeparaID(partida);
-
-
-	cout << " Por favor insira o destino pretendido";
-	cin >> destino;
-	destinoId = converteCidadeparaID(destino);
-	
-	if (destino == partida) {
-		cout << "O destino nao pode ser igual ao local de partida por favor tente novamente." << endl;
-		return;
-	}
-
-
-	
-
-
-	// inicializador graphviewer
-	GraphViewer *gvFinal = new GraphViewer(800, 601, false);
-
-	gvFinal->setBackground("escala200km.png");
-
-	gvFinal->createWindow(800, 601);
-
-	gvFinal->defineEdgeDashed(true);
-	gvFinal->defineVertexColor("blue");
-	gvFinal->defineEdgeColor("black");
-
-	for (size_t i = 0; i < grafo.getNumVertex(); i++)
-	{
-		gvFinal->addNode(grafo.getVertexSet()[i]->getInfo().getId(), grafo.getVertexSet()[i]->getInfo().getCoordenadas().getX(), grafo.getVertexSet()[i]->getInfo().getCoordenadas().getY());
-		gvFinal->setVertexLabel(grafo.getVertexSet()[i]->getInfo().getId(), grafo.getVertexSet()[i]->getInfo().getNome());
-		gvFinal->setVertexSize(grafo.getVertexSet()[i]->getInfo().getId(), 15);
-		gvFinal->setVertexColor(grafo.getVertexSet()[i]->getInfo().getId(), "BLACK");
-
-	}
-
-	
-	
-	
-	
-	
-	for (size_t i = 0; i < dadosGrafo.size(); i++)
-	{
-		if (dadosGrafo[i].getIdOrigem() == partidaId  ) {
-			gvFinal->addEdge(dadosGrafo[i].getIdAresta(), dadosGrafo[i].getIdDestino(), dadosGrafo[i].getIdOrigem(), EdgeType::UNDIRECTED);
-			gvFinal->setEdgeLabel(dadosGrafo[i].getIdAresta(), dadosGrafo[i].getEdgeLabel());
-		}
-	}
-
-	cin.ignore();
-	getchar();
-
-	grafo.dijkstraShortestPath(grafo.getVertexSet()[partidaId - 1]->getInfo());
-	vector<Cidade> caminho = grafo.getPath(grafo.getVertexSet()[partidaId - 1]->getInfo(), grafo.getVertexSet()[destinoId - 1]->getInfo());
-
-	cout << "\n\n O preco total da viagem e: " << grafo.getVertexSet()[destinoId - 1]->getDist() << " euros" << endl;
-
-	cin.ignore();
-	getchar();
+    for (size_t i = 0; i < dadosGrafo.size(); i++) {
+        if (dadosGrafo[i].getIdOrigem() == partidaId  ) {
+            gvFinal->addEdge(dadosGrafo[i].getIdAresta(), dadosGrafo[i].getIdDestino(), dadosGrafo[i].getIdOrigem(), EdgeType::UNDIRECTED);
+            gvFinal->setEdgeLabel(dadosGrafo[i].getIdAresta(), dadosGrafo[i].getEdgeLabel());
+        }
+    }
+    
+    cin.ignore();
+    getchar();
+    
+    grafo.dijkstraShortestPath(grafo.getVertexSet()[partidaId - 1]->getInfo());
+    
+    vector<Cidade> caminho = grafo.getPath(grafo.getVertexSet()[partidaId - 1]->getInfo(), grafo.getVertexSet()[destinoId - 1]->getInfo());
+    
+    cout << endl << setw(8) << " " << "A pagar: " << grafo.getVertexSet()[destinoId - 1]->getDist() << " €" << endl;
+    
+    cin.ignore();
+    getchar();
+    gvFinal->closeWindow();
 }
 
 int Agencia::converteCidadeparaID(string cidade) {
@@ -848,4 +898,8 @@ int Agencia::converteCidadeparaID(string cidade) {
 	}
 
 	return 0;
+}
+
+GraphViewer* Agencia::getGrafoInicial() const {
+    return this->gv;
 }
