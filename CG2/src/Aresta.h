@@ -19,7 +19,7 @@ public:
 		this->id = id;
 		this->origem = cidadeOrigem;
 		this->destino = cidadeDestino;
-		this->tipoTransporte = tipoTransporte;
+		this->tipoTransporte = transporte;
 	}
 
 	int getId() {
